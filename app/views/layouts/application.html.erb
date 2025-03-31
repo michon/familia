@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Familia</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <!-- normal icons -->
+     <div class="container">
+       <div class="row py-2 mb-4 bg-light">
+        <% if usuario_signed_in? %>
+          <div class="col col-1 text-success">
+              <a class="text-success" data-bs-toggle="collapse" href="#menuUsuario" aria-expanded="false" aria-controls="menuUsuario">
+                <%= lucide_icon('user-round-check') %> 
+              </a>
+          </div>
+          <div class="col col-7 text-success">
+            <%=current_usuario.nombre%>
+          </div>
+
+          <div class="collapse shadow text-secondary bg-light border border-1 border-secondary rounded-2 m-2 p-2 w-75" id="menuUsuario">
+            <div class="p-1">
+              <%= link_to(destroy_usuario_session_path, class: " text-decoration-none text-secondary", method: :delete) do %>
+                <%= lucide_icon('log-out') %> 
+                Cerrar Sesión
+              <% end %>
+            </div>
+            <div class="p-1">
+              <%=link_to( "", class: "text-secondary text-decoration-none") do %>
+                <%= lucide_icon('settings') %> 
+                Ajustes
+              <% end %>
+            </div>
+          </div>
+        <% else %>
+          <div class="col col-1 text-warning">
+              <%= lucide_icon('user-round-x') %> 
+          </div>
+          <div class="col col-7 text-warning">
+              Para proseguir, Accede con correo y contraseña. 
+          </div>
+        <% end %>
+      </div>
+
+      <div class="row">
+
+
+        <div class="col">
+          <%= yield %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          pie de página
+        </div> </div>
+
+    </div>
+  </body>
+
+</html>
