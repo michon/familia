@@ -1,0 +1,55 @@
+<% if @solicitudes.blank? %>
+  <%= link_to(root_path, class: "btn mt-2 w-100 text-decoration-none") do %>
+    <div class="d-flex flex-column align-items-center">
+      <div class="w-100">
+       <%= lucide_icon('house', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+      </div>
+      <div>
+        Volver a inicio
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
+
+<% @solicitudes.each do |cl| %>
+    <div class="card m-2 border-warning">
+      <div class="card-header bg-warning">
+        <div class="row">
+          <div class="col col-10">
+            <h5 class="card-title text-white">
+              <%= lucide_icon('calendar-clock', 'stroke-width' => '2', 'stroke' => '#ffffff') %> 
+              <%=cl.clase.clase_humano %> 
+            </h5>
+          </div>
+          <div class="col col-2">
+            <button type="button" class="btn btn-outline-primary p-1" data-bs-toggle="collapse" data-bs-target="#menuClases-<%=cl.id%>">
+              <%= lucide_icon('panel-top-open', 'stroke-width' => '2', 'stroke' => '#ffffff') %> 
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pt-0">
+          <div class="">
+              <div class="row mt-2">
+                <div class="col col-2 d-flex flex-column justify-content-center align-items-center">
+                  <span class="display-6 fw-bold"> <%= cl.clase.diaHora.hour.to_s.rjust(2,'0') %> </span>
+                  <span class="display-6 fw-bold"> <%= cl.clase.diaHora.min.to_s.rjust(2,'0') %>  </span>
+                </div>
+                <div class="col col-10 d-flex flex-column">
+                  <span class="text-<%=cl.clase.instructor.color%>"><%=cl.clase.instructor.nombre %></span>
+                  <span class="text-monospace font-weight-light fw-light">Aula <%= cl.clase.aula.nombre %></span>
+                </div>
+              </div>
+              <div class="row collapse " id="menuClases-<%=cl.id%>">
+                <%= link_to(clases_anularLista_path(cl.id), class: "btn btn-outline-secondary mt-2") do %>
+                  Ya no voy a ir a esta clase 
+                <% end %>
+
+              </div>
+          </div>
+      </div>
+    </div>
+
+<% end %>

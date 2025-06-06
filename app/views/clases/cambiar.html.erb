@@ -1,0 +1,76 @@
+<div class="p-4 m-2 border border-primary border-1 rounded ">
+  <%=form_tag(controller: "clases", action: "cambiarPost", method: "post") do %>
+
+    <!-- Grupo de controles clases de origen -->
+    <div class="form-group  fs-5 pb-4">
+
+      <!-- si es mñas de una clase, presentamos radio buttons -->
+      <% if @claseOrigen.count > 1 %>
+        <div class="d-flex flex-row fs-5 p-0 ">
+          <div>
+            <%= lucide_icon('calendar-clock', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+          </div>
+          <div class="ms-2">
+            Estas son la  clases en las que estás inscrita. Selecciona una y la cambiaremos
+          </div>
+        </div> 
+
+        <div class="rounded border border-1 mb-5 p-2 shadow-sm bg-light fs-5" >
+          <% @claseOrigen.each do | orgn | %>
+            <div class="text-<%= orgn.instructor.color %>">
+              <input class="form-check-input" type="radio" name="claseOrigen" id="claseOrigen-<%=orgn.id%>" value="<%= orgn.id %>" >
+              <label class="form-check-label" for="claseOrigen-<%=orgn.id%>">
+                <%= orgn.clase_humano %>
+              </label> 
+            </div>
+          <% end %>
+        </div>
+        <% @claseOrigen = @claseOrigen.first  %>
+
+      <!-- si sólo es una clase, ya no presentamos radio buttons -->
+      <% else %>
+        <div class="d-flex flex-row fs-5 p-0 ">
+          <div>
+            <%= lucide_icon('calendar-clock', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+          </div>
+          <div class="ms-2">
+            <label for="claseOrigen"> Bien, vamos a cambiar la clase que tienes el <span class="fw-bold">  <%=@claseOrigen.first.clase_humano %> </span> </label>
+          </div>
+        </div> 
+        <%= hidden_field_tag(:claseOrigen, @claseOrigen.first.id) %>
+      <% end %>
+    </div>
+
+
+    <!-- Frase para la selección de clases -->
+    <div class="fs-5 d-flex flex-row pb-4"> 
+      <div class="">
+        <%= lucide_icon('replace', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+      </div>
+      <div class="ms-2">
+        Por la que selecciones de las siguientes clases 
+      </div>
+    </div>
+
+    <!-- Grupo de controles para la selección de las clases destino -->
+    <%= render 'clasescreadas' %>
+
+    <!-- Botones de acción -->
+      <div class="d-flex justify-content-between  p-0 " >
+        <button type="submit" class="btn btn-success">
+          <p>
+          <%= lucide_icon('calendar-check-2') %> 
+          </p>
+          iré a esta clase
+        </button>
+        <%= link_to  :back, {:class=>"btn btn-success"} do %> 
+          <p>
+          <%= lucide_icon('x') %> 
+          </p>
+          volver atrás
+        <% end %>
+      </div>
+
+    <% end %>
+</div>
+

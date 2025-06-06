@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de espera confirmada - Agarayoga</title>
+    <style type="text/css">
+        body, td { font-family: 'Arial', sans-serif; color: #4a4a4a; line-height: 1.6; }
+        .wrapper { max-width: 600px; margin: 0 auto; }
+        .header { background-color: #f5f9fc; padding: 30px; text-align: center; }
+        .content { padding: 25px; background: #ffffff; }
+        .waitlist-box { background: #f0f7ff; border-left: 4px solid #5d9cec; padding: 20px; margin: 20px 0; }
+        .footer { padding: 20px; text-align: center; font-size: 14px; color: #888888; background: #f5f9fc; }
+        .button { background-color: #5d9cec; color: white !important; padding: 12px 25px; text-decoration: none; border-radius: 30px; display: inline-block; font-weight: bold; }
+        .signature { font-style: italic; color: #666666; }
+        .emoji { font-size: 1.2em; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+    </style>
+</head>
+<body style="margin: 0; padding: 0;">
+    <!-- Contenedor principal -->
+    <table class="wrapper" width="100%" cellspacing="0" cellpadding="0">
+        <!-- Cabecera con saludo -->
+        <tr>
+            <td class="header">
+                <h1 style="margin: 0; color: #333;">¡Hola [Nombre]! <span class="emoji">🙏</span></h1>
+            </td>
+        </tr>
+        
+        <!-- Contenido principal -->
+        <tr>
+            <td class="content">
+                <p>Soy Vishnu, tu asistente virtual de Agarayoga. <span class="emoji">✨</span></p>
+                
+                <p>Te confirmo que <strong>has sido añadido a la lista de espera</strong> de la clase:</p>
+                
+                <div class="waitlist-box">
+                  <h3 style="margin-top: 0; color: #2b7be5;"><%=@clAl.clase.clase_humano%> </h3>
+                  <p style="margin-bottom: 0;"><strong>Profesor:</strong> <%= @clAl.clase.instructor.nombre%><br>
+                  <strong>Posición en lista:</strong> <%0 %> </p>
+                </div>
+                
+                <h3 style="color: #2b7be5;">¿Cómo funciona la lista de espera?</h3>
+                <ul>
+                    <li>Te notificaremos <strong>inmediatamente</strong> si se libera una plaza (revisa tu email y WhastApp)</li>
+                    <li> Para asegurar tu lugar, <strong>te agradeceríamos que nos confirmes tu asistencia</strong> tan pronto como puedas. De lo contrario, después de 15 minutos, pasaremos la oportunidad al siguiente en la lista de espera.</li>
+                    <li>Puedes abandonar la lista en cualquier momento desde tu área personal  presionando en el siguiente <a href="https://familia.agarayoga.eu/clases/listaEspera"> enlace.</a> </li>
+                </ul>
+                
+                <p style="background: #fff8e1; padding: 15px; border-left: 4px solid #ffc107;">
+                    <strong>💡 Consejo:</strong> Añade <strong>web@agarayoga.eu</strong> a tus contactos para evitar que nuestros correos vayan a spam.
+                </p>
+                
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td align="center" style="padding: 20px 0;">
+                            <a href="https://familia.agarayoga.eu/clases/asignadas" class="button">Gestionar mis listas de espera</a>
+                        </td>
+                    </tr>
+                </table>
+                
+                <p class="signature">Con luz y paciencia,<br>
+                <strong>Vishnu</strong><br>
+                Asistente Virtual de Agarayoga <span class="emoji">🕉️</span></p>
+            </td>
+        </tr>
+        
+        <!-- Pie de página -->
+        <tr>
+            <td class="footer">
+                <p style="margin: 0;">© 2023 Agarayoga · Calle del Yoga 123, Madrid<br>
+                ¿Necesitas ayuda? <a href="mailto:hola@agarayoga.eu" style="color: #2b7be5;">hola@agarayoga.eu</a> | <a href="tel:+34911222333" style="color: #2b7be5;">911 22 33 33</a></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

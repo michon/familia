@@ -6,6 +6,18 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+            <meta property="og:title" content="Gestión de Clases Agarâra Yoga " />
+            <meta property="og:url" content="http://familia.agarayoga.eu" />
+            <meta property="og:description" content= "Gestióna tus datos y asistencias en AgâraYoga" />
+            <meta property="og:image" content="https://familia.agarayoga.eu/logo_agara_solo.png">
+            <meta property="og:image:url" content="https://familia.agarayoga.eu/logo_agara_solo.png">
+            <meta property="og:image:type" content="image/png" />
+            <meta property="og:image:width" content="288" />
+            <meta property="og:image:height" content="246" />
+            <meta property="og:image:alt" content="AgâraYoga" />
+
+            <%= favicon_link_tag '//familia.agarayoga.eu/logo_agara_solo.png' %>
+
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
@@ -13,6 +25,7 @@
   <body>
     <!-- normal icons -->
      <div class="container">
+       <!-- encabezado de la web, sección de usuario e inicio -->
        <div class="row py-2 mb-4 bg-light">
         <% if usuario_signed_in? %>
           <div class="col col-1 text-success">
@@ -22,6 +35,12 @@
           </div>
           <div class="col col-7 text-success">
             <%=current_usuario.nombre%>
+          </div>
+
+          <div class="col col-4 text-success d-flex flex-row-reverse">
+              <%=link_to( root_path, class: "text-secondary text-decoration-none") do %>
+                <%= lucide_icon('house') %> 
+              <% end %>
           </div>
 
           <div class="collapse shadow text-secondary bg-light border border-1 border-secondary rounded-2 m-2 p-2 w-75" id="menuUsuario">
@@ -48,18 +67,35 @@
         <% end %>
       </div>
 
+      <!-- cuerpo de la web -->
+
       <div class="row">
 
+        <% if !notice.blank? or !alert.blank? then %>
+          <div class="container-fluid" >
+            <%= render 'layouts/alerts' %>
+          </div>
+        <%end%>
 
         <div class="col">
           <%= yield %>
         </div>
       </div>
+      
+      <hr class="hr" />
 
-      <div class="row">
+      <div class="row py-2 mb-4 mx-1 rounded bg-light">
         <div class="col">
-          pie de página
-        </div> </div>
+            <%= link_to 'Politica de Privacidad', centro_politica_path(), class: "link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %> 
+        </div>
+        <div class="col">
+            <%= link_to 'Aviso legal', centro_aviso_path() , class: "link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %> 
+        </div>
+        <div class="col">
+            <%= link_to 'Cookies', centro_cookies_path(), class: "link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" %> 
+        </div>
+        </div>
+      </div>
 
     </div>
   </body>

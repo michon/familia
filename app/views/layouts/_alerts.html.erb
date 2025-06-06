@@ -1,0 +1,21 @@
+<% unless notice.blank? then %>
+  <div class="d-flex alert alert-info"> 
+   <div class="">
+    <%= lucide_icon('speech') %> 
+   </div>
+   <div class="flex-grow-1 ps-2">
+    <%= notice %>
+   </div>
+  </div>
+<% end %>
+
+<% unless alert.blank? then %>
+  <div class="d-flex alert alert-info"> 
+   <div class="">
+    <%= lucide_icon('triangle-alert') %> 
+   </div>
+   <div class="flex-grow-1 ps-2">
+    <%= alert %> 
+   </div>
+  </div>
+<% end %>

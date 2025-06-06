@@ -1,0 +1,147 @@
+
+<%=form_tag(controller: "clases", action: "buscarPost", method: "post", class: "pb-4") do %>
+    <!-- Grupo de controles para la selección de las clases  -->
+    <div class="form-group pb-5 alert alert-light">
+      <p class="fs-5"> Estas son nuestras clases libres. Selecciona el día y la clase que quieres solicitar </p>
+      <!-- Encabezado dia -->
+      <a class="text-decoration-none" data-bs-toggle="collapse" href="#clase-<%=@clasesLibres.first.id.to_s%>" role="button" aria-expanded="false" aria-controls="clase-<%=@clasesLibres.first.id.to_s%>">
+        <div class="btn btn-outline-success d-flex flex-row-reverse justify-content-between px-3 fs-5", id = "clase-<%= @clasesLibres.first.id.to_s%>">
+          <div>
+            <%= I18n.t('date.day_names')[@clasesLibres.first.diaHora.wday].capitalize %>
+            <%= I18n.l(@clasesLibres.first.diaHora.to_date, format: :short) %>
+          </div>
+          <div> 
+            <%= lucide_icon('tally-' + @clasesLibres.first.diaHora.wday.to_s) %> 
+          </div>
+        </div>
+      </a>
+
+      <!-- encabezado del div de clases -->
+      <div class="collapse rounded border border-1 mb-2 p-2 shadow-sm bg-<%=@clasesLibres.first.diaHora.day.odd? ? 'light':'white'%> fs-5", id = "clase-<%= @clasesLibres.first.id.to_s%>">
+        <% dia = @clasesLibres.first.diaHora.wday %>
+
+        <%  @clasesLibres.each do |cl| %> 
+          <% unless dia == cl.diaHora.wday %>
+            </div>
+            <!-- Encabezado dia  dia -->
+          <a class="text-decoration-none" data-bs-toggle="collapse" href="#clase-<%=cl.id.to_s%>" role="button" aria-expanded="false" aria-controls="clase-<%=cl.id.to_s%>">
+            <div class="btn btn-outline-success d-flex flex-row-reverse justify-content-between my-3 px-3 fs-5 ", id = "clase-<%= cl.id.to_s%>">
+              <div>
+                <%= I18n.t('date.day_names')[cl.diaHora.wday].capitalize %>
+                <%= I18n.l(cl.diaHora.to_date, format: :short) %>
+              </div>
+              <div>
+                <%= lucide_icon('tally-' + cl.diaHora.wday.to_s) %> 
+              </div>
+            </div>
+          </a>
+          <% end %>
+
+          <!-- encabezado del div de clases -->
+          <% unless dia == cl.diaHora.wday %>
+            <div class="collapse rounded border border-1 mb-2 p-2 shadow-sm bg-<%=cl.diaHora.day.odd? ? 'light':'white'%> fs-5", id = "clase-<%= cl.id.to_s%>">
+            <% dia = cl.diaHora.wday %>
+          <% end %>
+
+          <div class=" text-<%= cl.instructor.color %>">
+            <input class="form-check-input" type="radio" name="claseDestino" id="claseDestino-<%=cl.id%>" value="<%= cl.id %>" >
+            <label class="form-check-label" for="claseDestino-<%=cl.id%>">
+              <%= cl.clase_humano %>
+            </label> 
+          </div>
+        <% end %> <!-- fin del bucle de clasesLibres -->
+
+      </div> 
+
+      <!-- -- # colocamos aqui ya botones de acción por si el usuario no llega abajo -- -->
+      <!-- Botones de acción -->
+      <div class="d-flex justify-content-between " >
+        <button type="submit" class="btn btn-success">
+          <p>
+          <%= lucide_icon('calendar-check-2') %> 
+          </p>
+          Voy a esta clase
+        </button>
+        <%= link_to  :back, {:class=>"btn btn-success"} do %> 
+          <p>
+          <%= lucide_icon('x') %> 
+          </p>
+          volver atrás
+        <% end %>
+      </div>
+    </div>
+
+    <!-- ------------------------------------------------------------------------------- -->
+    <!-- --------------------------  Clases completas ---------------------------------- -->
+    <!-- ------------------------------------------------------------------------------- -->
+
+    <!-- Grupo de controles para la selección de las clases  -->
+    <div class="form-group pb-5 alert alert-light">
+      <p class="fs-5"> Las siguientes clases ya están completas, pero puedes solicitarlas igualmente y si queda libre te avisaremos.</p>
+      <!-- Encabezado dia -->
+      <a class="text-decoration-none" data-bs-toggle="collapse" href="#clase-<%=@clasesCompletas.first.id.to_s%>" role="button" aria-expanded="false" aria-controls="clase-<%=@clasesCompletas.first.id.to_s%>">
+        <div class="btn btn-outline-warning d-flex flex-row-reverse justify-content-between px-3 fs-5", id = "clase-<%= @clasesCompletas.first.id.to_s%>">
+          <div>
+            <%= I18n.t('date.day_names')[@clasesCompletas.first.diaHora.wday].capitalize %>
+            <%= I18n.l(@clasesCompletas.first.diaHora.to_date, format: :short) %>
+          </div>
+          <div> 
+            <%= lucide_icon('tally-' + @clasesCompletas.first.diaHora.wday.to_s) %> 
+          </div>
+        </div>
+      </a>
+
+      <!-- encabezado del div de clases -->
+      <div class="collapse rounded border border-1 mb-2 p-2 shadow-sm bg-<%=@clasesCompletas.first.diaHora.day.odd? ? 'light':'white'%> fs-5", id = "clase-<%= @clasesCompletas.first.id.to_s%>">
+        <% dia = @clasesCompletas.first.diaHora.wday %>
+
+        <%  @clasesCompletas.each do |cl| %> 
+          <% unless dia == cl.diaHora.wday %>
+            </div>
+            <!-- Encabezado dia  dia -->
+          <a class="text-decoration-none" data-bs-toggle="collapse" href="#clase-<%=cl.id.to_s%>" role="button" aria-expanded="false" aria-controls="clase-<%=cl.id.to_s%>">
+            <div class="btn btn-outline-warning d-flex flex-row-reverse justify-content-between my-3 px-3 fs-5 ", id = "clase-<%= cl.id.to_s%>">
+              <div>
+                <%= I18n.t('date.day_names')[cl.diaHora.wday].capitalize %>
+                <%= I18n.l(cl.diaHora.to_date, format: :short) %>
+              </div>
+              <div>
+                <%= lucide_icon('tally-' + cl.diaHora.wday.to_s) %> 
+              </div>
+            </div>
+          </a>
+          <% end %>
+
+          <!-- encabezado del div de clases -->
+          <% unless dia == cl.diaHora.wday %>
+            <div class="collapse rounded border border-1 mb-2 p-2 shadow-sm bg-<%=cl.diaHora.day.odd? ? 'light':'white'%> fs-5", id = "clase-<%= cl.id.to_s%>">
+            <% dia = cl.diaHora.wday %>
+          <% end %>
+
+          <div class=" text-<%= cl.instructor.color %>">
+            <input class="form-check-input" type="radio" name="claseDestino" id="claseDestino-<%=cl.id%>" value="<%= cl.id %>" >
+            <label class="form-check-label" for="claseDestino-<%=cl.id%>">
+              <%= cl.clase_humano %>
+            </label> 
+          </div>
+        <% end %> <!-- fin del bucle de clasesLibres -->
+
+      </div> 
+    <!-- Botones de acción -->
+      <div class="d-flex justify-content-between " >
+        <button type="submit" class="btn btn-warning">
+          <p>
+          <%= lucide_icon('calendar-check-2') %> 
+          </p>
+          Solicito esta clase
+        </button>
+        <%= link_to  :back, {:class=>"btn btn-warning"} do %> 
+          <p>
+          <%= lucide_icon('x') %> 
+          </p>
+          volver atrás
+        <% end %>
+      </div>
+    </div>
+
+<%end%>

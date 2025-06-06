@@ -7,4 +7,15 @@ class CentroController < ApplicationController
       @clases = ClaseAlumno.where(diaHora: Date.today.beginning_of_day.., usuario_id: @usr.id).order(:diaHora)
     end
   end
+
+  def politica
+  end
+
+  def aviso
+  end
+
+  def cookies
+  end
+
+
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_03_26_193806) do
+ActiveRecord::Schema[7.1].define(version: 2025_05_08_155919) do
   create_table "active_storage_attachments", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -112,6 +112,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_26_193806) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "aula_id", null: false
+    t.boolean "activa"
     t.index ["aula_id"], name: "index_clases_on_aula_id"
     t.index ["instructor_id"], name: "index_clases_on_instructor_id"
   end
@@ -231,7 +232,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_26_193806) do
     t.string "sepaSecuencia"
     t.boolean "batchBooking"
     t.string "serie"
-    t.boolean "remesa"
+    t.boolean "remesado"
     t.datetime "pago", precision: nil
     t.datetime "vencimiento", precision: nil
     t.string "factura"
@@ -296,6 +297,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_03_26_193806) do
     t.string "referencia"
     t.string "tipo"
     t.boolean "navidad"
+    t.string "alias"
     t.index ["email"], name: "index_usuarios_on_email", unique: true
     t.index ["grupoAlumno_id"], name: "index_usuarios_on_grupoAlumno_id"
     t.index ["instructor_id"], name: "index_usuarios_on_instructor_id"

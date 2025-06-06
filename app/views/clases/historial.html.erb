@@ -1,0 +1,76 @@
+  <!-- icono de bienvenida -->
+
+  <div class="alert alert-light fs-5 m-2"> 
+
+      <button type="button" class="w-100 btn p-1" data-bs-toggle="collapse" data-bs-target="#leyenda">
+        <div class="d-flex flex-row justify-content-between flex-grow-1">
+        <div class="fs-5">
+          Leyenda de colores
+        </div>
+        <div class="">
+            <%= lucide_icon('panel-top-open', 'stroke-width' => '2', 'stroke' => '#000000') %> 
+        </div>
+        </div>
+      </button>
+
+    <div class="row collapse " id="leyenda">
+      <div class="d-flex flex-row">
+         <div class="">
+          <%= lucide_icon('user-round-check', 'stroke-width' => '2', 'stroke' => '#198754') %> 
+         </div>
+         <div class="flex-grow-1 ps-2 text-success">
+           En verde si has asistido.
+         </div>
+       </div>
+      <div class="d-flex flex-row">
+         <div class="">
+          <%= lucide_icon('user-x', 'stroke-width' => '2', 'stroke' => '#dc3545') %> 
+         </div>
+         <div class="flex-grow-1 ps-2 text-danger">
+           En rojo si has faltado.
+         </div>
+       </div>
+      <div class="d-flex flex-row">
+         <div class="">
+          <%= lucide_icon('user-round-minus', 'stroke-width' => '2', 'stroke' => '#ffc107') %> 
+         </div>
+         <div class="flex-grow-1 ps-2 text-warning">
+           En amarillo si has faltado pero avisaste.
+         </div>
+       </div>
+    </div>
+  </div>
+  
+
+  <!-- recorrido de las clases a las  que vendrá -->
+  <% @clases.each do |cl| %>
+    <div class="card m-2 border-<%=cl.claseAlumnoEstado.color%>">
+      <div class="card-header bg-<%=cl.claseAlumnoEstado.color%>">
+        <div class="row">
+          <div class="col col-10">
+            <p class="card-title text-white fs-5">
+              
+              <%= lucide_icon(@iconos[cl.claseAlumnoEstado_id], 'stroke-width' => '2', 'stroke' => '#ffffff') %> 
+              <%=cl.clase.clase_humano %> 
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pt-0">
+          <div class="">
+              <div class="row mt-2">
+                <div class="col col-2 d-flex flex-column justify-content-center align-items-center">
+                  <span class="display-6 fw-bold"> <%= cl.diaHora.hour.to_s.rjust(2,'0') %> </span>
+                  <span class="display-6 fw-bold"> <%= cl.diaHora.min.to_s.rjust(2,'0') %>  </span>
+                </div>
+                <div class="col col-10 d-flex flex-column">
+                  <span class="text-<%=cl.clase.instructor.color%>"><%=cl.instructor.nombre %></span>
+                  <span class="text-monospace font-weight-light fw-light">Aula <%= cl.clase.aula.nombre %></span>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  <% end %>
+

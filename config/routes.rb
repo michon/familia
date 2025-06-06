@@ -1,6 +1,24 @@
 Rails.application.routes.draw do
+  get  'clases/asignadas'
+  get  'clases/buscar'
+  get  'clases/historial'
+  post 'clases/buscar',         to: 'clases#buscarPost',     as: 'clases/buscarPost/'
+  get  'clases/cambiar/:id',    to: 'clases#cambiar',        as: 'clases/cambiar/'
+  post 'clases/cambiar',        to: 'clases#cambiarPost',    as: 'clases/cambiarPost/'
+  get  'clases/listaEspera'
+  get  'clases/anularLista/:id',to: 'clases#anularLista',    as: 'clases/anularLista/'
+  get  'clases/anular/:id',     to: 'clases#anular',         as: 'clases/anular/'
+  get  'clases/asistire/:id',   to: 'clases#asistire',       as: 'clases/asistire/'
+
+  resource :usuario
   devise_for :usuarios
+
   get 'centro/comienzo'
+  get 'centro/politica'
+  get 'centro/aviso'
+  get 'centro/cookies'
+
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

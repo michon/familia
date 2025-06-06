@@ -1,44 +1,63 @@
+
 <% if usuario_signed_in? %>
-  <% @clases.each do |cl| %>
-    <div class="card m-2">
+  <div class="row d-flex justify-content-between mb-5">
+    <%= link_to(clases_asignadas_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+        <p class="text-center mb-0">
+          <%= lucide_icon('calendar-clock', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+        </p>
+        <p class="text-center m-0">
+          Clases Asignadas 
+        </p>
+    <% end %>
 
-      <div class="card-header">
-        <div class="row">
-          <div class="col col-10">
-            <h5 class="card-title">
-              <%= lucide_icon('calendar-clock') %> 
-              <%=cl.clase.clase_humano %> 
-            </h5>
-          </div>
-          <div class="col col-2">
-            <button type="button" class="btn btn-outline-primary p-1" data-bs-toggle="collapse" data-bs-target="#menuClases-<%=cl.id%>">
-              <%= lucide_icon('panel-top-open') %> 
-            </button>
-          </div>
-        </div>
-      </div>
+    <%= link_to(clases_buscar_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+        <p class="text-center mb-0">
+          <%= lucide_icon('calendar-search', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+        </p>
+        <p class="text-center m-0">
+          Buscar Clase
+        </p>
+    <% end %>
+  </div>
 
-      <div class="card-body pt-0">
-          <div class="">
-              <div class="row mt-2">
-                  <div class="col col-2 d-flex flex-column border border-secondary border-1 bg-light rounded-circle justify-content-center align-items-center">
-                    <span class="display-6"> <%= cl.diaHora.hour.to_s.rjust(2,'0') %> </span>
-                    <span class="display-6"> <%= cl.diaHora.min.to_s.rjust(2,'0') %>  </span>
-                  </div>
-                  <div class="col col-10 d-flex flex-column">
-                    <span class="text-<%=cl.clase.instructor.color%>"><%=cl.instructor.nombre %></span>
-                    <span class="text-monospace font-weight-light fw-light">Aula <%= cl.clase.aula.nombre %></span>
-                  </div>
-              </div>
-              <div class="row collapse show" id="menuClases-<%=cl.id%>">
-                <button type="button" class="btn btn-outline-secondary mt-2">Cambiar Clase</button>
-                <button type="button" class="btn btn-outline-secondary mt-2">No asistiré</button>
-              </div>
-          </div>
-      </div>
+  <div class="row d-flex justify-content-between mb-5">
+    <%= link_to(clases_cambiar_path(id: 0), class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+      <p class="text-center mb-0">
+        <%= lucide_icon('replace', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+      </p>
+      <p class="text-center m-0">
+        Cambiar Clase
+      </p>
+    <% end %>
+    <%= link_to(clases_listaEspera_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+      <p class="text-center mb-0">
+        <%= lucide_icon('hand', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+      </p>
+      <p class="text-center m-0">
+        En lista de espera
+      </p>
+    <% end %>
+  </div>
 
-    </div>
-  <% end %>
+  <div class="row d-flex justify-content-between mb-5">
+    <%= link_to(clases_historial_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+      <p class="text-center mb-0">
+        <%= lucide_icon('file-clock', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+      </p>
+      <p class="text-center m-0">
+        Historial
+      </p>
+    <% end %>
+    <%= link_to(usuario_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+      <p class="text-center mb-0">
+        <%= lucide_icon('user-round-pen', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+      </p>
+      <p class="text-center m-0">
+        Perfil
+      </p>
+    <% end %>
+  </div>
+
 <% else %>
   <p> sin loguear </p>
 <% end %>

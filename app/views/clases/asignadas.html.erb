@@ -1,0 +1,116 @@
+  <!-- icono de bienvenida -->
+  <div class="d-flex alert alert-success fs-5 m-2"> 
+   <div class="">
+    <%= lucide_icon('speech') %> 
+   </div>
+   <div class="flex-grow-1 ps-2">
+    Estas son las clases en las que estás inscrita
+   </div>
+  </div>
+  
+
+  <!-- recorrido de las clases a las  que vendrá -->
+  <% @clases.each do |cl| %>
+    <div class="card m-2 border-<%=cl.claseAlumnoEstado.color%>">
+      <div class="card-header bg-<%=cl.claseAlumnoEstado.color%>">
+        <div class="row">
+          <div class="col col-10">
+            <p class="card-title text-white fs-5">
+              <%= lucide_icon('calendar-clock', 'stroke-width' => '2', 'stroke' => '#ffffff') %> 
+              <%=cl.clase.clase_humano %> 
+            </p>
+          </div>
+          <div class="col col-2">
+            <button type="button" class="btn btn-outline-primary p-1" data-bs-toggle="collapse" data-bs-target="#menuClases-<%=cl.id%>">
+              <%= lucide_icon('panel-top-open', 'stroke-width' => '2', 'stroke' => '#ffffff') %> 
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pt-0">
+          <div class="">
+              <div class="row mt-2">
+                <div class="col col-2 d-flex flex-column justify-content-center align-items-center">
+                  <span class="display-6 fw-bold"> <%= cl.diaHora.hour.to_s.rjust(2,'0') %> </span>
+                  <span class="display-6 fw-bold"> <%= cl.diaHora.min.to_s.rjust(2,'0') %>  </span>
+                </div>
+                <div class="col col-10 d-flex flex-column">
+                  <span class="text-<%=cl.clase.instructor.color%>"><%=cl.instructor.nombre %></span>
+                  <span class="text-monospace font-weight-light fw-light">Aula <%= cl.clase.aula.nombre %></span>
+                </div>
+              </div>
+              <div class="show row collapse " id="menuClases-<%=cl.id%>">
+                <%= link_to(clases_cambiar_path(cl.clase_id), class: "btn btn-outline-secondary mt-2") do %>
+                  Cambiar Clase
+                <% end %>
+
+                <% unless cl.claseAlumnoEstado_id == 3 %>
+                   <%= link_to(clases_anular_path(cl.id), class: "btn btn-outline-secondary mt-2 ") do %>
+                    No asistiré
+                  <% end %>
+                <% end %>
+
+                <% unless cl.claseAlumnoEstado_id == 1 %>
+                  <%= link_to(clases_asistire_path(cl.id), class: "btn btn-outline-secondary mt-2") do %>
+                    Asistiré
+                  <% end %>
+                <% end %>
+              </div>
+          </div>
+      </div>
+    </div>
+  <% end %>
+
+
+
+  <!-- clases solicitadas -->
+<% @solicitudes.each do |cl| %>
+    <div class="d-flex alert alert-success fs-5 m-2"> 
+     <div class="">
+      <%= lucide_icon('speech') %> 
+     </div>
+     <div class="flex-grow-1 ps-2">
+      Clases pendientes de confirmación 
+     </div>
+    </div>
+
+    <div class="card m-2 border-warning">
+      <div class="card-header bg-warning">
+        <div class="row">
+          <div class="col col-10">
+            <h5 class="card-title text-white">
+              <%= lucide_icon('calendar-clock', 'stroke-width' => '2', 'stroke' => '#ffffff') %> 
+              <%=cl.clase.clase_humano %> 
+            </h5>
+          </div>
+          <div class="col col-2">
+            <button type="button" class="btn btn-outline-primary p-1" data-bs-toggle="collapse" data-bs-target="#menuClases-<%=cl.id%>">
+              <%= lucide_icon('panel-top-open', 'stroke-width' => '2', 'stroke' => '#ffffff') %> 
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-body pt-0">
+          <div class="">
+              <div class="row mt-2">
+                <div class="col col-2 d-flex flex-column justify-content-center align-items-center">
+                  <span class="display-6 fw-bold"> <%= cl.clase.diaHora.hour.to_s.rjust(2,'0') %> </span>
+                  <span class="display-6 fw-bold"> <%= cl.clase.diaHora.min.to_s.rjust(2,'0') %>  </span>
+                </div>
+                <div class="col col-10 d-flex flex-column">
+                  <span class="text-<%=cl.clase.instructor.color%>"><%=cl.clase.instructor.nombre %></span>
+                  <span class="text-monospace font-weight-light fw-light">Aula <%= cl.clase.aula.nombre %></span>
+                </div>
+              </div>
+              <div class="row collapse " id="menuClases-<%=cl.id%>">
+                <%= link_to(clases_anularLista_path(cl.id), class: "btn btn-outline-secondary mt-2") do %>
+                  Anular la solicitud 
+                <% end %>
+              </div>
+          </div>
+      </div>
+    </div>
+
+<% end %>

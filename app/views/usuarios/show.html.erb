@@ -1,0 +1,32 @@
+<div class="m-1 p-2 mb-5 border border-primary rounded">
+  <%= form_for @usr do |f| %>
+    <div class="form-group mb-3">
+      <%= lucide_icon('user-round-check') %> 
+      <%= f.label :nombre, class: 'form-label' %>
+        <%= f.text_field :nombre, class: 'form-control',  required: true  %>
+    </div>
+    <div class="form-group mb-3">
+      <%= lucide_icon('at-sign') %> 
+      <%= f.label :email, 'Correo Electrónico', class: 'form-label' %>
+      <%= f.text_field :email, class: 'form-control', readonly: true%>
+    </div>
+    <div class="form-group mb-3">
+      <%= lucide_icon('fingerprint') %> 
+      <%= f.label :dni, 'D.N.I.',  class: 'form-label' %>
+      <%= f.text_field :dni, class: 'form-control', required: true %>
+    </div>
+    <div class="form-group mb-3">
+      <%= lucide_icon('phone') %> 
+      <%= f.label :movil, 'Móvil', class: 'form-label' %>
+      <%= f.text_field :movil, class: 'form-control' %>
+    </div>
+    <div class="form-group mb-3">
+      <%= lucide_icon('land-plot') %> 
+      <%= f.label :direccion, 'Dirección', class: 'form-label' %>
+      <%= f.text_field :direccion, class: 'form-control', required: true %>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+  <% end %>
+</div>
+
+

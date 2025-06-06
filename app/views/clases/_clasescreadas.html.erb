@@ -1,0 +1,56 @@
+    <!-- Grupo de controles para la selección de las clases  -->
+    <div class="form-group pb-4 ">
+      <p class="fs-5"> Estas son nuestras clases libres. Selecciona el día y la clase que quieres solicitar </p>
+      <!-- Encabezado dia -->
+      <a class="text-decoration-none" data-bs-toggle="collapse" href="#clase-<%=@clasesCreadas.first.id.to_s%>" role="button" aria-expanded="false" aria-controls="clase-<%=@clasesCreadas.first.id.to_s%>">
+        <div class="btn btn-outline-success d-flex flex-row-reverse justify-content-between px-3 fs-5", id = "clase-<%= @clasesCreadas.first.id.to_s%>">
+          <div>
+            <%= I18n.t('date.day_names')[@clasesCreadas.first.diaHora.wday].capitalize %>
+            <%= I18n.l(@clasesCreadas.first.diaHora.to_date, format: :short) %>
+          </div>
+          <div> 
+            <%= lucide_icon('tally-' + @clasesCreadas.first.diaHora.wday.to_s) %> 
+          </div>
+        </div>
+      </a>
+
+      <!-- encabezado del div de clases -->
+      <div class="collapse rounded border border-1 mb-2 p-2 shadow-sm bg-<%=@clasesCreadas.first.diaHora.day.odd? ? 'light':'white'%> fs-5", id = "clase-<%= @clasesCreadas.first.id.to_s%>">
+        <% dia = @clasesCreadas.first.diaHora.wday %>
+
+        <%  @clasesCreadas.each do |cl| %> 
+          <% unless dia == cl.diaHora.wday %>
+            </div>
+            <!-- Encabezado dia  dia -->
+          <a class="text-decoration-none" data-bs-toggle="collapse" href="#clase-<%=cl.id.to_s%>" role="button" aria-expanded="false" aria-controls="clase-<%=cl.id.to_s%>">
+            <div class="btn btn-outline-success d-flex flex-row-reverse justify-content-between my-3 px-3 fs-5 ", id = "clase-<%= cl.id.to_s%>">
+              <div>
+                <%= I18n.t('date.day_names')[cl.diaHora.wday].capitalize %>
+                <%= I18n.l(cl.diaHora.to_date, format: :short) %>
+              </div>
+              <div>
+                <%= lucide_icon('tally-' + cl.diaHora.wday.to_s) %> 
+              </div>
+            </div>
+          </a>
+          <% end %>
+
+          <!-- encabezado del div de clases -->
+          <% unless dia == cl.diaHora.wday %>
+            <div class="collapse rounded border border-1 mb-2 p-2 shadow-sm bg-<%=cl.diaHora.day.odd? ? 'light':'white'%> fs-5", id = "clase-<%= cl.id.to_s%>">
+            <% dia = cl.diaHora.wday %>
+          <% end %>
+
+
+          <% unless cl.completo? %>
+          <div class=" text-<%= cl.instructor.color %>">
+            <input class="form-check-input" type="radio" name="claseDestino" id="claseDestino-<%=cl.id%>" value="<%= cl.id %>" >
+            <label class="form-check-label" for="claseDestino-<%=cl.id%>">
+              <%= cl.clase_humano %>
+            </label> 
+          </div>
+          <% end %>
+        <% end %> <!-- fin del bucle de clasesCreadas -->
+
+      </div> 
+    </div>

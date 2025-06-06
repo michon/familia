@@ -1,11 +1,7 @@
 class Usuario < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable
+  devise :database_authenticatable, :recoverable, :validatable
   belongs_to :grupoAlumno
   has_many :horarioAlumno
   has_many :recibos
@@ -16,9 +12,6 @@ class Usuario < ApplicationRecord
   scope :activo, -> {where(debaja: false)}
   scope :inactivos, -> {where(debaja: true)}
   default_scope { order(nombre: :asc) }
-
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
 
   enum rol: [:yogui, :instructor, :admin, :michon]
 
