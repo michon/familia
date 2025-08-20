@@ -1,4 +1,33 @@
 
+  <div class="alert alert-light fs-5 m-2"> 
+
+    <button type="button" class="w-100 btn p-1" data-bs-toggle="collapse" data-bs-target="#leyenda">
+      <div class="d-flex flex-row justify-content-between flex-grow-1">
+        <div class="fs-5">
+          Leyenda de colores
+        </div>
+        <div class="">
+            <%= lucide_icon('panel-top-open', 'stroke-width' => '2', 'stroke' => '#000000') %> 
+        </div>
+      </div>
+    </button>
+
+    <div class="row collapse " id="leyenda">
+
+      <% @instructores.each do |ins| %>
+        <div class="d-flex flex-row">
+           <div class="">
+            <%= lucide_icon('user-round', 'stroke-width' => '2') %> 
+           </div>
+           <div class="flex-grow-1 ps-2 text-<%=ins.color%>">
+             <%= ins.nombre %>
+           </div>
+        </div>
+      <% end %>
+      
+    </div>
+
+  </div>
 <%=form_tag(controller: "clases", action: "buscarPost", method: "post", class: "pb-4") do %>
     <!-- Grupo de controles para la selección de las clases  -->
     <div class="form-group pb-5 alert alert-light">

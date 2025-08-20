@@ -27,7 +27,7 @@ class VishnuMailer < ApplicationMailer
   def inscripcion(clAl, usr)
     @clAl = clAl
     @url  = 'http://familia.agarayoga.eu/'
-    mail(to: 'miguel.softgalia@gmail.com', subject: "#{@claAl.usuario.nombre} se ha inscrito en la clase #{@clAl.clase.clase_humano}")
+    mail(to: 'miguel.softgalia@gmail.com', subject: "#{usr.nombre} se ha inscrito en la clase #{@clAl.clase.clase_humano}")
   end
 
   def cambioAlumno(clOrigen, clDestino)

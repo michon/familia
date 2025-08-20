@@ -15,7 +15,6 @@ class ClasesController < ApplicationController
   # buscarPost
   def buscarPost
     # Comprobaciones previas
-    # 0. Que exista la claseDestino
     # 1. No está ya en la clase.
     # 2. Tiene clases por recuperar
     # 3. Existe el parametro clase destino
@@ -23,13 +22,15 @@ class ClasesController < ApplicationController
     # Añadir a la clase si hay hueco en la misma o
     # añadir a solicitudes si la clase ya está llena.
 
+    # 0. Que exista la claseDestino
     unless ClaseAlumno.exists?(usuario_id: current_usuario.id, clase_id: params[:claseDestino])
       # En la clase a la que quiere acceder, no está inscrito
       begin
+        
         cl = Clase.find(params[:claseDestino])
-        # Si la clase está completa lo entra en solicitud
 
-        if cl.completo?
+        # Si la clase está completa no entra en solicitud
+        if cl.completo? 
           flash[:alert] = 'Solicitud recibida. Te avisaremos si hay plazas libres.'
           clAl = ClaseSolicitum.new(usuario_id: current_usuario.id, clase_id: cl.id)
           clAl.save
@@ -57,13 +58,15 @@ class ClasesController < ApplicationController
     @clasesCreadas = Clase.where(diaHora: DateTime.now..).order(:diaHora)
     @clasesLibres = []
     @clasesCompletas = []
+    @instructores = Instructor.where(id: @clasesCreadas.pluck(:instructor_id).uniq)
     @clasesCreadas.each do |cl|
-      if cl.claseAlumno.where(usuario_id: current_usuario.id, clase_id: cl.id).blank?
-      if cl.completo? 
-        @clasesCompletas << cl
-      else
-        @clasesLibres << cl
-      end
+      # Si ya está inscrito en alguna clase de ese día con el estado de Vendr con el estado de Vendrá, ya no puede ir a otra clase ese mismo día.
+      if ClaseAlumno.where(usuario_id: current_usuario.id, claseAlumnoEstado_id: 1, diaHora: cl.diaHora.beginning_of_day..cl.diaHora.end_of_day).blank?
+        if cl.completo? 
+          @clasesCompletas << cl
+        else
+          @clasesLibres << cl
+        end
       end
     end
   end

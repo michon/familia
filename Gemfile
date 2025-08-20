@@ -48,8 +48,8 @@ gem "bootsnap", require: false
 gem "cssbundling-rails", "~> 1.4"
 
 gem 'bootstrap', '~> 5.1'
+gem 'bootstrap-icons'
 gem 'dartsass-sprockets'
-gem 'jquery-rails', '~> 4.4'
 
 gem "devise"
 gem "devise-i18n"
@@ -80,3 +80,4 @@ end
 
 
 gem "lucide-rails", "~> 0.5.1"
+gem 'base64', '0.3.0'
