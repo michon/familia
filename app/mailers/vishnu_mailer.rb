@@ -15,7 +15,7 @@ class VishnuMailer < ApplicationMailer
   def solicitud(clAl, usr)
     @clAl = clAl
     @url  = 'http://familia.agarayoga.eu/'
-    mail(to: 'miguel.softgalia@gmail.com', subject: "#{@claAl.usuario.nombre} en lista de espera para la clase #{@clAl.clase.clase_humano}")
+    mail(to: 'miguel.softgalia@gmail.com', subject: "#{usr.nombre} en lista de espera para la clase #{@clAl.clase.clase_humano}")
   end
 
   def inscripcionAlumno(clAl, usr)

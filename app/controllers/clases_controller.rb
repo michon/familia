@@ -26,7 +26,7 @@ class ClasesController < ApplicationController
     unless ClaseAlumno.exists?(usuario_id: current_usuario.id, clase_id: params[:claseDestino])
       # En la clase a la que quiere acceder, no está inscrito
       begin
-        
+
         cl = Clase.find(params[:claseDestino])
 
         # Si la clase está completa no entra en solicitud
@@ -36,6 +36,7 @@ class ClasesController < ApplicationController
           clAl.save
           VishnuMailer.solicitudAlumno(clAl, current_usuario).deliver
           VishnuMailer.solicitud(clAl, current_usuario).deliver
+          flash[:alert] = "Hemos apuntado tu solucitud. Si queda alguna plaza, te avisaremos."
         else
           # si no está completa, entra se inscribe en la clase.
           clAl = cl.claseAlumno.new(usuario_id: current_usuario.id, claseAlumnoEstado_id: 1, diaHora: cl.diaHora, instructor_id: cl.instructor.id)
@@ -43,6 +44,7 @@ class ClasesController < ApplicationController
           flash[:notice] = "¡Listo! Ya estás inscrito en la clase del " + clAl.clase.clase_humano
           VishnuMailer.inscripcionAlumno(clAl, current_usuario).deliver
           VishnuMailer.inscripcion(clAl, current_usuario).deliver
+          flash[:alert] = "Has sido inscrito en la clase solicitada."
         end
         
         redirect_to clases_asignadas_path
@@ -77,18 +79,28 @@ class ClasesController < ApplicationController
       cl = Clase.find(params[:claseOrigen])
       clDestino = Clase.find(params[:claseDestino])
 
+      #Buscamos al Alumno en la clase Origen
       clAl = ClaseAlumno.find_by(clase_id: params[:claseOrigen], usuario_id: current_usuario.id)
+      #hacemos un copia
+      clnuevo = clAl.dup
+      clnuevo.clase_id = params[:claseDestino]
+      clnuevo.instructor_id = clDestino.instructor_id
+      clnuevo.diaHora = clDestino.diaHora
+      clnuevo.claseAlumnoEstado_id = 1
 
-      unless clAl.update(clase_id: params[:claseDestino], diaHora: clDestino.diaHora, instructor_id: clDestino.instructor_id)
+      # Si no se puede grabar, lo introduccimos como solicitud
+      unless clnuevo.save
         VishnuMailer.solicitudAlumno(clAl, current_usuario).deliver
         VishnuMailer.solicitud(clAl, current_usuario).deliver
         flash[:alert] = "Selecciona una clase destino "
         redirect_to :action => 'cambiar', id: 0
-      else
-        VishnuMailer.cambioAlumno(cl, clAl).deliver
-        VishnuMailer.cambio(cl, clAl).deliver
+      else  # grabamos al alumno en la clas nueva y cambiams el estado de la anterior
+        clAl.update(claseAlumnoEstado_id: 5)
+        VishnuMailer.cambioAlumno(cl, clnuevo).deliver
+        VishnuMailer.cambio(cl, clnuevo).deliver
         redirect_to clases_asignadas_path
       end
+
     rescue ActiveRecord::RecordNotFound
         flash[:alert] = "Selecciona una clase origen  "
         redirect_to :action => 'cambiar', id: 0
@@ -98,13 +110,17 @@ class ClasesController < ApplicationController
   # cambiar
   def cambiar
     if params[:id] == '0'
-      @claseOrigen = Clase.find( ClaseAlumno.where(diaHora: DateTime.now.., usuario_id: current_usuario.id).order(:diaHora).pluck(:clase_id))
+        @claseOrigen = Clase.con_clase_alumno_activa(current_usuario.id)
+                        .order('clase_alumnos.diaHora ASC')
+                        .distinct
     else
       @claseOrigen = Clase.where(id: params[:id])
     end
 
     # sólo las clases que no están completas.
-    @clasesCreadas = Clase.where(diaHora: DateTime.now.. , activa: true).order(:diaHora)
+    @clasesCreadas = Clase.futuras.activas
+                        .includes(:instructor, :aula)
+                        .order(:diaHora)
   end
 
   def listaEspera
@@ -124,7 +140,9 @@ class ClasesController < ApplicationController
 
   # Anulaa ClaseAlumno
   def anular
-    ClaseAlumno.find(params[:id]).update(claseAlumnoEstado_id: 3)
+    cl = ClaseAlumno.find(params[:id])
+    cl.update(claseAlumnoEstado_id: 3)
+    flash[:notice] = "Plaza liberada ✅ <br/> <br/>Gracias por avisar. Has sido dado de baja de la clase del #{cl.clase.clase_humano_instructor}."
     redirect_to clases_asignadas_path
   end
 

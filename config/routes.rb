@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get  'clases/anular/:id',     to: 'clases#anular',         as: 'clases/anular/'
   get  'clases/asistire/:id',   to: 'clases#asistire',       as: 'clases/asistire/'
 
+  # config/routes.rb
+  get 'seleccion-horarios/:token', to: 'seleccion_horarios#edit', as: :seleccion_horarios
+  patch 'seleccion-horarios/:token', to: 'seleccion_horarios#update'
+
   resource :usuario
   devise_for :usuarios
 
@@ -25,6 +29,10 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # config/routes.rb
+  namespace :admin do
+    get 'preinscripciones', to: 'preinscripciones_dashboard#index'
+  end
   # Defines the root path route ("/")
    root "centro#comienzo"
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_05_08_155919) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_20_112643) do
   create_table "active_storage_attachments", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -175,6 +175,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_08_155919) do
     t.index ["usuario_id"], name: "index_julios_on_usuario_id"
   end
 
+  create_table "preinscripciones", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.bigint "usuario_id", null: false
+    t.bigint "horario_id", null: false
+    t.boolean "activo", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["usuario_id", "horario_id"], name: "index_preinscripciones_on_usuario_id_and_horario_id", unique: true
+  end
+
   create_table "proceso_estado_alumnos", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
     t.bigint "Usuario_id", null: false
     t.bigint "procesoEstado_id", null: false
@@ -298,6 +307,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_05_08_155919) do
     t.string "tipo"
     t.boolean "navidad"
     t.string "alias"
+    t.string "preinscripcion_token"
     t.index ["email"], name: "index_usuarios_on_email", unique: true
     t.index ["grupoAlumno_id"], name: "index_usuarios_on_grupoAlumno_id"
     t.index ["instructor_id"], name: "index_usuarios_on_instructor_id"

@@ -34,7 +34,7 @@
             <%= lucide_icon('calendar-clock', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
           </div>
           <div class="ms-2">
-            <label for="claseOrigen"> Bien, vamos a cambiar la clase que tienes el <span class="fw-bold">  <%=@claseOrigen.first.clase_humano %> </span> </label>
+            <label for="claseOrigen"> Bien, vamos a cambiar la clase que tienes el <span class="fw-bold">  <%=@claseOrigen.first.clase_humano_instructor %> </span> </label>
           </div>
         </div> 
         <%= hidden_field_tag(:claseOrigen, @claseOrigen.first.id) %>

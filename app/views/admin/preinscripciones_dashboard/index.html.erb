@@ -1,0 +1,83 @@
+<%# app/views/admin/preinscripciones_dashboard/index.html.erb %>
+<div class="container mt-4">
+  <h1>Dashboard de Preinscripciones</h1>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><%= @total_usuarios %></h5>
+          <p class="card-text">Total Alumnos</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><%= @usuarios_respondidos %></h5>
+          <p class="card-text">Han Respondido</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title"><%= @progreso %>%</h5>
+          <p class="card-text">Progreso</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Alumno</th>
+        <th>Email</th>
+        <th>Horarios Seleccionados</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @usuarios.each do |usuario| %>
+        <tr>
+          <td><%= usuario.nombre %></td>
+          <td><%= usuario.email %></td>
+          <td>
+            <% selecciones = Preinscripcion.where(usuario_id: usuario.id, activo: true) %>
+            <%= selecciones.count %>
+            <% if selecciones.any? %>
+              <button class="btn btn-sm btn-info" type="button" data-bs-toggle="collapse" 
+                      data-bs-target="#detalles-<%= usuario.id %>">
+                Ver
+              </button>
+              <div class="collapse" id="detalles-<%= usuario.id %>">
+                <% selecciones.each do |s| %>
+                  <div><small><%= s.horario.clase_humano if s.horario %></small></div>
+                <% end %>
+              </div>
+            <% end %>
+          </td>
+          <td>
+            <% if usuario.preinscripcion_token %>
+              <div class="input-group input-group-sm">
+                <input type="text"
+                       class="form-control form-control-sm"
+                       value="<%= seleccion_horarios_url(token: usuario.preinscripcion_token) %>"
+                       readonly
+                       style="font-size: 0.8rem; max-width: 200px;">
+                <button class="btn btn-outline-primary btn-sm"
+                        type="button"
+                        onclick="this.previousElementSibling.select(); document.execCommand('copy'); this.textContent = '✓'; setTimeout(() => { this.textContent = 'Copiar' }, 1000)">
+                  Copiar
+                </button>
+              </div>
+            <% else %>
+              <span class="text-muted">Sin token</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

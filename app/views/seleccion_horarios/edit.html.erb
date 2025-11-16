@@ -1,0 +1,54 @@
+<%# app/views/seleccion_horarios/edit.html.erb %>
+<div class="container mt-4">
+  <h2>Selecciona tus horarios para el próximo curso</h2>
+  <p class="text-muted">Hola <strong><%= @usuario.nombre %></strong>, marca las clases a las que planeas asistir regularmente</p>
+
+  <%= form_with url: seleccion_horarios_path(token: @usuario.preinscripcion_token), method: :patch do |f| %>
+    <div class="row">
+      <% [
+        ['Lunes', 1],
+        ['Martes', 2],
+        ['Miércoles', 3],
+        ['Jueves', 4],
+        ['Viernes', 5],
+        ['Sábado', 6]
+      ].each do |dia_name, dia_num| %>
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="card h-100">
+            <div class="card-header bg-light">
+              <h5 class="mb-0"><%= dia_name %></h5>
+            </div>
+            <div class="card-body">
+              <% horarios_dia = @horarios.select { |h| h.diaSemana == dia_num } %>
+              <% if horarios_dia.any? %>
+                <% horarios_dia.each do |horario| %>
+                  <div class="form-check mb-3">
+                    <%= check_box_tag 'horario_ids[]',
+                                     horario.id,
+                                     @selecciones_ids.include?(horario.id),
+                                     class: 'form-check-input',
+                                     id: "horario_#{horario.id}" %>
+                    <label class="form-check-label" for="horario_<%= horario.id %>">
+                      <span class="fw-bold"><%= horario.hora_humano %></span>
+                      <br>
+                      <small class="text-muted">
+                        <%= horario.instructor.nombre %> - Aula <%= horario.aula.nombre %>
+                      </small>
+                    </label>
+                  </div>
+                <% end %>
+              <% else %>
+                <p class="text-muted">No hay clases este día</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="text-center mt-4 p-3 bg-light rounded">
+      <%= f.submit 'Guardar mi selección', class: 'btn btn-primary btn-lg px-5' %>
+      <p class="text-muted mt-2">Puedes modificar tu selección en cualquier momento</p>
+    </div>
+  <% end %>
+</div>
