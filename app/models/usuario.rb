@@ -4,6 +4,7 @@ class Usuario < ApplicationRecord
   devise :database_authenticatable, :recoverable, :validatable
   belongs_to :grupoAlumno
   has_many :horarioAlumno
+  has_many :horarios, through: :horarioAlumno
   has_many :recibos
   has_many :cajas
   has_one :instructor

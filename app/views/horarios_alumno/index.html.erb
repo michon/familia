@@ -1,0 +1,210 @@
+<!-- Icono y mensaje de bienvenida -->
+<div class="d-flex alert alert-info fs-5 m-2">
+  <div class="">
+    <%= lucide_icon('calendar-days') %>
+  </div>
+  <div class="flex-grow-1 ps-2">
+    Tu horario habitual semanal
+  </div>
+</div>
+
+<% if @horarios_alumno.any? %>
+  <!-- Horario completo en una sola tarjeta -->
+  <div class="card m-2 border-primary">
+    <div class="card-header bg-primary text-white">
+      <div class="row">
+        <div class="col col-10">
+          <p class="card-title fs-5 mb-0">
+            <%= lucide_icon('calendar-check', 'stroke-width' => '2', 'stroke' => '#ffffff') %>
+            Tu horario fijo
+          </p>
+        </div>
+        <div class="col col-2 text-end">
+          <span class="badge bg-light text-primary fs-6">
+            <%= @total_clases %> <%= 'clase'.pluralize(@total_clases) %>
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card-body">
+      <% @horarios_alumno.each_with_index do |horario, index| %>
+        <% if index > 0 %>
+          <!-- Separador -->
+          <hr class="my-4">
+        <% end %>
+        
+        <!-- Clase individual -->
+        <div class="clase-item rounded p-3 mb-3">
+          <div class="row align-items-center">
+            <!-- Día y hora -->
+            <div class="col-md-3 col-12 mb-3 mb-md-0">
+              <div class="d-flex flex-column align-items-center align-items-md-start">
+                <span class="badge bg-primary dia-badge mb-2 text-center">
+                  <%= horario.dia_humano.upcase %>
+                </span>
+                <div class="text-center text-md-start">
+                  <span class="display-6 fw-bold"><%= horario.hora.to_s.rjust(2, '0') %></span>
+                  <span class="display-6 fw-bold"><%= horario.minuto.to_s.rjust(2, '0') %></span>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Detalles de la clase -->
+            <div class="col-md-9 col-12">
+              <div class="row">
+                <div class="col-md-6 mb-2 mb-md-0">
+                  <div class="d-flex align-items-center mb-2">
+                    <%= lucide_icon('user', size: 20, class: "me-2 instructor-color-#{horario.instructor&.color || 'primary'}") %>
+                    <div>
+                      <div class="fw-bold">Instructor</div>
+                      <div class="fs-5 fw-semibold text-<%= horario.instructor&.color || 'primary' %>">
+                        <%= horario.instructor&.nombre || 'Sin asignar' %>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex align-items-center">
+                    <%= lucide_icon('home', size: 20, class: 'me-2 text-muted') %>
+                    <div>
+                      <div class="fw-bold">Aula</div>
+                      <div class="text-monospace">
+                        <%= horario.aula&.nombre || 'Sin asignar' %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center mb-2">
+                    <%= lucide_icon('calendar', size: 20, class: 'me-2 text-muted') %>
+                    <div>
+                      <div class="fw-bold">Desde</div>
+                      <div><%= horario.created_at.strftime('%B %Y') %></div>
+                    </div>
+                  </div>
+                  
+                  <div class="d-flex align-items-center">
+                    <%= lucide_icon('clock', size: 20, class: 'me-2 text-muted') %>
+                    <div>
+                      <div class="fw-bold">Estado</div>
+                      <span class="badge bg-success">
+                        <%= lucide_icon('check-circle', size: 14, class: 'me-1') %>
+                        Activa
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+      <!-- Nota informativa -->
+      <div class="alert alert-light mt-4 border">
+        <div class="d-flex">
+          <div class="">
+            <%= lucide_icon('info', 'stroke-width' => '1.5') %>
+          </div>
+          <div class="flex-grow-1 ps-2">
+            <strong>Importante:</strong> Este es tu horario habitual. Las clases se generan automáticamente cada semana basándose en este horario.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% else %>
+  <!-- Mensaje cuando no hay horario -->
+  <div class="card m-2 border-warning">
+    <div class="card-header bg-warning text-white">
+      <div class="row">
+        <div class="col col-10">
+          <p class="card-title fs-5 mb-0">
+            <%= lucide_icon('calendar-off', 'stroke-width' => '2', 'stroke' => '#ffffff') %>
+            Sin horario habitual asignado
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="text-center py-4">
+        <div class="mb-3">
+          <%= lucide_icon('calendar-plus', size: 48, class: 'text-warning') %>
+        </div>
+        <h4 class="text-warning mb-3">No tienes horario habitual</h4>
+        <p class="text-muted mb-4">
+          Para que podamos generar tus clases automáticamente cada semana,
+          necesitas tener un horario habitual asignado.
+        </p>
+        <div class="alert alert-info">
+          <div class="d-flex">
+            <div class="">
+              <%= lucide_icon('mail', 'stroke-width' => '1.5') %>
+            </div>
+            <div class="flex-grow-1 ps-2">
+              <strong>Contacta con la administración</strong> para que te asignen un horario habitual.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<!-- Pie de página informativo -->
+<div class="card m-2 border-info">
+  <div class="card-header bg-info text-white">
+    <div class="row">
+      <div class="col col-10">
+        <p class="card-title fs-5 mb-0">
+          <%= lucide_icon('help-circle', 'stroke-width' => '2', 'stroke' => '#ffffff') %>
+          ¿Necesitas modificar tu horario?
+        </p>
+      </div>
+      <div class="col col-2">
+        <button type="button" class="btn btn-outline-light btn-sm p-1" data-bs-toggle="collapse" data-bs-target="#infoCambios">
+          <%= lucide_icon('panel-top-open', 'stroke-width' => '2', 'stroke' => '#ffffff') %>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body collapse show" id="infoCambios">
+    <ul class="list-unstyled">
+      <li class="mb-3">
+        <div class="d-flex">
+          <div class="me-3">
+            <%= lucide_icon('arrow-right-left', size: 20, class: 'text-info') %>
+          </div>
+          <div>
+            <strong>Cambio temporal de clase</strong>
+            <p class="mb-0 text-muted">Para cambiar una clase específica (esta semana o la próxima), ve a "Mis Clases" y selecciona "Cambiar Clase".</p>
+          </div>
+        </div>
+      </li>
+      <li class="mb-3">
+        <div class="d-flex">
+          <div class="me-3">
+            <%= lucide_icon('calendar-plus', size: 20, class: 'text-info') %>
+          </div>
+          <div>
+            <strong>Solicitud de cambio permanente</strong>
+            <p class="mb-0 text-muted">Próximamente podrás solicitar cambios en tu horario habitual desde aquí.</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="d-flex">
+          <div class="me-3">
+            <%= lucide_icon('mail', size: 20, class: 'text-info') %>
+          </div>
+          <div>
+            <strong>Contactar con administración</strong>
+            <p class="mb-0 text-muted">Para modificar tu horario habitual ahora, contacta directamente con la administración del centro.</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

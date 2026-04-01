@@ -10,7 +10,10 @@ Rails.application.routes.draw do
   get  'clases/anular/:id',     to: 'clases#anular',         as: 'clases/anular/'
   get  'clases/asistire/:id',   to: 'clases#asistire',       as: 'clases/asistire/'
 
-  # config/routes.rb
+  # Rutas para horario habitual.
+  get 'mi-horario', to: 'horarios_alumno#index', as: :mi_horario
+
+
   get 'seleccion-horarios/:token', to: 'seleccion_horarios#edit', as: :seleccion_horarios
   patch 'seleccion-horarios/:token', to: 'seleccion_horarios#update'
 
@@ -21,6 +24,7 @@ Rails.application.routes.draw do
   get 'centro/politica'
   get 'centro/aviso'
   get 'centro/cookies'
+  get 'centro/bandhas'
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

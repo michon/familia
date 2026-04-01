@@ -57,6 +57,22 @@
       </p>
     <% end %>
   </div>
+  <div class="row d-flex justify-content-between mb-5">
+    <%= link_to(mi_horario_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+      <p class="text-center mb-0">
+        <%= lucide_icon('calendar', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+      </p>
+      <p class="text-center m-0">
+        Horario habitual
+      </p>
+    <% end %>
+    <%= link_to(usuario_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+      <p class="text-center mb-0">
+      </p>
+      <p class="text-center m-0">
+      </p>
+    <% end %>
+  </div>
 
 <% else %>
   <p> sin loguear </p>

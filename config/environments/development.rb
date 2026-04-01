@@ -46,15 +46,15 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.smtp_settings = {
-  address:              'smtp.agarayoga.eu',
-  port:                 587,
-  domain:               'agarayoga.eu',
-  user_name:            'web@agarayoga.eu',
-  password:             'AYeeh25-B',
-  authentication:       'plain',
-  enable_starttls_auto: true }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              'smtp.agarayoga.eu',
+    port:                 587,
+    domain:               'agarayoga.eu',
+    user_name:            'web@agarayoga.eu',
+    password:             'AYeeh25-B',
+    authentication:       'plain',
+    enable_starttls_auto: true }
 
 
 
@@ -75,6 +75,8 @@ config.action_mailer.smtp_settings = {
 
   # Highlight code that enqueued background job in logs.
   config.active_job.verbose_enqueue_logs = true
+  config.active_job.queue_adapter = :async
+  config.active_job.queue_name_prefix = "familia_development"
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true

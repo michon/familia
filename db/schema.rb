@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_20_112643) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
   create_table "active_storage_attachments", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,6 +94,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_112643) do
     t.index ["claseAlumnoEstado_id"], name: "index_clase_alumnos_on_claseAlumnoEstado_id"
     t.index ["clase_id"], name: "index_clase_alumnos_on_clase_id"
     t.index ["instructor_id"], name: "index_clase_alumnos_on_instructor_id"
+    t.index ["usuario_id", "clase_id"], name: "unique_usuario_clase", unique: true
     t.index ["usuario_id"], name: "index_clase_alumnos_on_usuario_id"
   end
 
@@ -175,13 +176,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_112643) do
     t.index ["usuario_id"], name: "index_julios_on_usuario_id"
   end
 
-  create_table "preinscripciones", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+  create_table "preinscripciones", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.bigint "usuario_id", null: false
     t.bigint "horario_id", null: false
     t.boolean "activo", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["usuario_id", "horario_id"], name: "index_preinscripciones_on_usuario_id_and_horario_id", unique: true
+    t.datetime "created_at", default: -> { "current_timestamp(6)" }, null: false
+    t.datetime "updated_at", default: -> { "current_timestamp(6) ON UPDATE current_timestamp(6)" }, null: false
+    t.index ["usuario_id", "horario_id"], name: "index_preinscripciones_on_usuario_and_horario", unique: true
   end
 
   create_table "proceso_estado_alumnos", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
