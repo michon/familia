@@ -1,0 +1,58 @@
+<!-- app/views/vishnu_mailer/plaza_disponible.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: #f8f9fa; padding: 20px; text-align: center; border-radius: 5px; }
+    .content { padding: 20px 0; }
+    .clase-info { background: #e9ecef; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    .button { display: inline-block; padding: 15px 30px; text-decoration: none; border-radius: 5px; margin: 10px 5px; }
+    .button-confirmar { background: #28a745; color: white; }
+    .button-rechazar { background: #6c757d; color: white; }
+    .urgente { color: #dc3545; font-weight: bold; }
+    .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; font-size: 12px; color: #6c757d; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>¡Buenas noticias, <%= @usuario.nombre %>!</h1>
+    </div>
+    
+    <div class="content">
+      <p>Ha quedado libre una plaza en la clase que solicitaste:</p>
+      
+      <div class="clase-info">
+        <h2><%= @clase.clase_humano_instructor %></h2>
+        <p><strong>Aula:</strong> <%= @clase.aula.nombre if @clase.aula %></p>
+      </div>
+      
+      <p class="urgente">
+        ⏰ Tienes hasta <%= @tiempo_limite %> para confirmar tu asistencia.
+      </p>
+      
+      <p>Si confirmas, tu plaza quedará reservada definitivamente.</p>
+      
+      <div style="text-align: center; margin: 30px 0;">
+        <%= link_to "SÍ, QUIERO LA PLAZA", @url_confirmar, class: "button button-confirmar" %>
+      </div>
+      
+      <p style="text-align: center;">
+        <%= link_to "No puedo asistir", @url_rechazar, class: "button button-rechazar" %>
+      </p>
+      
+      <p style="font-size: 14px; color: #666;">
+        Si no confirmas ni rechazas antes del límite, la plaza se asignará automáticamente a la siguiente persona de la lista de espera.
+      </p>
+    </div>
+    
+    <div class="footer">
+      <p>AgâraYoga - <%= @url %></p>
+      <p>Este es un email automático, por favor no respondas a esta dirección.</p>
+    </div>
+  </div>
+</body>
+</html>

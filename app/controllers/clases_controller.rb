@@ -204,7 +204,32 @@ class ClasesController < ApplicationController
     redirect_to clases_asignadas_path
   end
 
+  def confirmar_plaza
+    if ListaEsperaService.confirmar_inscripcion(params[:token])
+      flash[:notice] = "¡Inscripción confirmada! Te esperamos en clase. Namasté 🙏"
+    else
+      flash[:alert] = "El enlace ha caducado o no es válido. La plaza ha sido asignada a otra persona."
+    end
+
+    redirect_to root_path
+  end
+
+  # GET /rechazar-plaza?token=xyz
+  def rechazar_plaza
+    if ListaEsperaService.rechazar_inscripcion(params[:token])
+      flash[:notice] = "Has rechazado la plaza. Gracias por avisar."
+    else
+      flash[:alert] = "El enlace no es válido o ya había caducado."
+    end
+
+    redirect_to root_path
+  end
+
+
+
   private
+
+
   def usuario_autenticado
     unless usuario_signed_in?
       redirect_to root_path()

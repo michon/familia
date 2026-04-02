@@ -43,4 +43,37 @@ class VishnuMailer < ApplicationMailer
     @url  = 'http://familia.agarayoga.eu/cambio'
     mail(to: 'miguel.softgalia@gmail.com', subject: "#{@clDestino.usuario.nombre} ha cambiado la clase #{@clOrigen.clase_humano} por la de #{@clDestino.clase.clase_humano}.")
   end
+
+  def plaza_disponible(solicitud)
+    @solicitud = solicitud
+    @usuario = solicitud.usuario
+    @clase = solicitud.clase
+    @tiempo_limite = solicitud.reservado_hasta.strftime('%H:%M del %d/%m/%Y')
+
+    # URLs de confirmación (ajusta el host según tu configuración)
+    @url_confirmar = Rails.application.routes.url_helpers.confirmar_plaza_url(
+      token: solicitud.token_confirmacion,
+      host: 'familia.agarayoga.eu'
+    )
+    @url_rechazar = Rails.application.routes.url_helpers.rechazar_plaza_url(
+      token: solicitud.token_confirmacion,
+      host: 'familia.agarayoga.eu'
+    )
+
+    mail(
+      to: @usuario.email,
+      subject: "¡Plaza disponible! Confirma tu asistencia a #{@clase.clase_humano}"
+    )
+  end
+
+  def inscripcion_confirmada(solicitud)
+    @solicitud = solicitud
+    @usuario = solicitud.usuario
+    @clase = solicitud.clase
+
+    mail(
+      to: @usuario.email,
+      subject: "Inscripción confirmada: #{@clase.clase_humano}"
+    )
+  end
 end

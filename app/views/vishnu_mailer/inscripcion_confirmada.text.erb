@@ -1,0 +1,14 @@
+<!-- app/views/vishnu_mailer/inscripcion_confirmada.text.erb -->
+✅ ¡Inscripción confirmada!
+
+Hola <%= @usuario.nombre %>,
+
+Tu plaza ha sido confirmada para:
+
+<%= @clase.clase_humano_instructor %>
+Aula: <%= @clase.aula.nombre if @clase.aula %>
+
+Te esperamos en clase. ¡Namasté! 🙏
+
+---
+AgâraYoga

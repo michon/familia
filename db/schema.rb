@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
+ActiveRecord::Schema[7.1].define(version: 2026_04_01_152014) do
   create_table "active_storage_attachments", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -94,7 +94,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
     t.index ["claseAlumnoEstado_id"], name: "index_clase_alumnos_on_claseAlumnoEstado_id"
     t.index ["clase_id"], name: "index_clase_alumnos_on_clase_id"
     t.index ["instructor_id"], name: "index_clase_alumnos_on_instructor_id"
+    t.index ["usuario_id", "claseAlumnoEstado_id", "diaHora"], name: "idx_user_estado_fecha"
     t.index ["usuario_id", "clase_id"], name: "unique_usuario_clase", unique: true
+    t.index ["usuario_id", "diaHora"], name: "idx_user_fecha"
     t.index ["usuario_id"], name: "index_clase_alumnos_on_usuario_id"
   end
 
@@ -103,7 +105,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
     t.bigint "usuario_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "estado", default: "pendiente", null: false
+    t.datetime "reservado_hasta"
+    t.string "token_confirmacion"
     t.index ["clase_id"], name: "index_clase_solicita_on_clase_id"
+    t.index ["estado"], name: "index_clase_solicita_on_estado"
+    t.index ["token_confirmacion"], name: "index_clase_solicita_on_token_confirmacion", unique: true
     t.index ["usuario_id"], name: "index_clase_solicita_on_usuario_id"
   end
 
@@ -116,6 +123,43 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
     t.boolean "activa"
     t.index ["aula_id"], name: "index_clases_on_aula_id"
     t.index ["instructor_id"], name: "index_clases_on_instructor_id"
+  end
+
+  create_table "documentos_firmados", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.bigint "usuario_id", null: false
+    t.string "tipo", null: false
+    t.binary "pdf", size: :long
+    t.datetime "fecha_firma", precision: nil, null: false
+    t.string "ip_origen"
+    t.string "dispositivo"
+    t.string "user_agent"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["usuario_id", "tipo"], name: "index_documentos_firmados_on_usuario_id_and_tipo", unique: true
+    t.index ["usuario_id"], name: "index_documentos_firmados_on_usuario_id"
+  end
+
+  create_table "facturas", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
+    t.string "numero", null: false
+    t.integer "tipo", default: 0, null: false
+    t.integer "estado", default: 0, null: false
+    t.bigint "recibo_id"
+    t.bigint "factura_origen_id"
+    t.date "fecha_emision"
+    t.decimal "base_imponible", precision: 10, scale: 2
+    t.decimal "iva", precision: 10, scale: 2
+    t.decimal "total", precision: 10, scale: 2
+    t.string "motivo_abono"
+    t.text "datos_cliente_snapshot", size: :long, collation: "utf8mb4_bin"
+    t.string "trimestre"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["estado", "trimestre"], name: "index_facturas_on_estado_and_trimestre"
+    t.index ["factura_origen_id"], name: "index_facturas_on_factura_origen_id"
+    t.index ["numero"], name: "index_facturas_on_numero", unique: true
+    t.index ["recibo_id"], name: "index_facturas_on_recibo_id"
+    t.index ["trimestre"], name: "index_facturas_on_trimestre"
+    t.check_constraint "json_valid(`datos_cliente_snapshot`)", name: "datos_cliente_snapshot"
   end
 
   create_table "grupos_alumnos", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
@@ -159,6 +203,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
     t.datetime "updated_at", null: false
     t.bigint "usuario_id", null: false
     t.string "color"
+    t.boolean "debaja"
+    t.string "avatar"
     t.index ["usuario_id"], name: "index_instructores_on_usuario_id"
   end
 
@@ -249,7 +295,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
     t.string "concepto"
     t.string "lugar"
     t.bigint "remesa_id"
+    t.bigint "factura_id"
+    t.integer "recibo_origen_id"
+    t.index ["factura_id"], name: "index_recibos_on_factura_id"
+    t.index ["recibo_origen_id"], name: "index_recibos_on_recibo_origen_id"
     t.index ["remesa_id"], name: "index_recibos_on_remesa_id"
+    t.index ["serie", "factura"], name: "index_recibos_on_serie_and_factura_legacy"
+    t.index ["usuario_id", "vencimiento"], name: "idx_user_vencimiento"
     t.index ["usuario_id"], name: "index_recibos_on_usuario_id"
   end
 
@@ -271,9 +323,11 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
     t.string "empresa"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "bloqueada", default: false
+    t.datetime "fecha_emision", precision: nil
   end
 
-  create_table "usuarios", charset: "latin1", collation: "latin1_swedish_ci", options: "ENGINE=MyISAM", force: :cascade do |t|
+  create_table "usuarios", charset: "latin1", collation: "latin1_swedish_ci", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -309,11 +363,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_20_113159) do
     t.boolean "navidad"
     t.string "alias"
     t.string "preinscripcion_token"
+    t.string "pin_acceso"
     t.index ["email"], name: "index_usuarios_on_email", unique: true
     t.index ["grupoAlumno_id"], name: "index_usuarios_on_grupoAlumno_id"
     t.index ["instructor_id"], name: "index_usuarios_on_instructor_id"
+    t.index ["nombre"], name: "idx_nombre"
     t.index ["reset_password_token"], name: "index_usuarios_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "documentos_firmados", "usuarios", name: "fk_documentos_usuarios"
   add_foreign_key "remesa_recibos", "remesas"
 end

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get  'clases/anular/:id',     to: 'clases#anular',         as: 'clases/anular/'
   get  'clases/asistire/:id',   to: 'clases#asistire',       as: 'clases/asistire/'
 
+  get '/confirmar-plaza', to: 'clases#confirmar_plaza', as: :confirmar_plaza
+  get '/rechazar-plaza', to: 'clases#rechazar_plaza', as: :rechazar_plaza
+
   # Rutas para horario habitual.
   get 'mi-horario', to: 'horarios_alumno#index', as: :mi_horario
 

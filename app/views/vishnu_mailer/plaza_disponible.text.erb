@@ -1,0 +1,21 @@
+<!-- app/views/vishnu_mailer/plaza_disponible.text.erb -->
+¡Buenas noticias, <%= @usuario.nombre %>!
+
+Ha quedado libre una plaza en la clase que solicitaste:
+
+<%= @clase.clase_humano_instructor %>
+Aula: <%= @clase.aula.nombre if @clase.aula %>
+
+⏰ Tienes hasta <%= @tiempo_limite %> para confirmar tu asistencia.
+
+Para CONFIRMAR tu plaza, visita:
+<%= @url_confirmar %>
+
+Si NO PUEDES ASISTIR, avísanos aquí:
+<%= @url_rechazar %>
+
+Si no confirmas ni rechazas antes del límite, la plaza se asignará automáticamente a la siguiente persona de la lista de espera.
+
+---
+AgâraYoga - <%= @url %>
+Email automático, por favor no respondas a esta dirección.

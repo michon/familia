@@ -1,0 +1,39 @@
+<!-- app/views/vishnu_mailer/inscripcion_confirmada.html.erb -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: #d4edda; padding: 20px; text-align: center; border-radius: 5px; }
+    .content { padding: 20px 0; }
+    .clase-info { background: #e9ecef; padding: 15px; border-radius: 5px; margin: 20px 0; }
+    .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; font-size: 12px; color: #6c757d; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>✅ ¡Inscripción confirmada!</h1>
+    </div>
+    
+    <div class="content">
+      <p>Hola <%= @usuario.nombre %>,</p>
+      
+      <p>Tu plaza ha sido confirmada para:</p>
+      
+      <div class="clase-info">
+        <h2><%= @clase.clase_humano_instructor %></h2>
+        <p><strong>Aula:</strong> <%= @clase.aula.nombre if @clase.aula %></p>
+      </div>
+      
+      <p>Te esperamos en clase. ¡Namasté! 🙏</p>
+    </div>
+    
+    <div class="footer">
+      <p>AgâraYoga</p>
+    </div>
+  </div>
+</body>
+</html>
