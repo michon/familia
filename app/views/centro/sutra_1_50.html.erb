@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutra 1.50 · Tajjaḥ saṃskāro 'nya-saṃskāra-pratibandhī</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #fcfaf7; color: #2d3436; }
+        .serif { font-family: 'Lora', serif; }
+        .ancient { font-family: 'Cinzel', serif; }
+        .devanagari { font-family: 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', serif; }
+
+        .card-sutra { background: #fffdf5; border-top: 4px solid #b45309; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-explica { background: #ffffff; border-top: 4px solid #4a7c59; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-practica { background: #fffdfa; border-top: 4px solid #be185d; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        .paso { display: flex; align-items: flex-start; }
+        .paso-num {
+            background: #be185d; color: white; width: 22px; height: 22px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 0.7rem; margin-right: 8px; flex-shrink: 0;
+        }
+
+        .btn-audio {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: #b45309; color: #fff; border: none; cursor: pointer;
+            padding: 0.6rem 1.4rem; border-radius: 999px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em;
+        }
+        .btn-audio:hover { background: #92400e; }
+    </style>
+</head>
+<body class="p-4 md:p-12 leading-relaxed">
+    <div class="max-w-3xl mx-auto">
+
+        <p class="mb-4 text-sm text-stone-500">
+            <%= link_to '← Lección anterior: Sutra 1.49', centro_sutra_path(num: '1-49'), class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <p class="mb-6 text-sm text-right">
+            <%= link_to '← Los Yogasutras de Patañjali', centro_sutras_path, class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <% if Date.today >= Date.new(2027, 4, 21) %>
+        <p class="mb-6 text-sm text-right">
+            <%= link_to 'Siguiente lección: Sutra 1.51 →', centro_sutra_path(num: '1-51'), class: 'text-amber-800 hover:text-amber-900 font-semibold' %>
+        </p>
+        <% else %>
+        <p class="mb-6 text-sm text-right text-stone-400 italic">El próximo sutra se desvelará el miércoles 21 de abril</p>
+        <% end %>
+
+        <header class="text-center mb-10">
+            <p class="ancient text-xs tracking-[0.3em] text-stone-500 uppercase mb-3">Lección 50 · Samādhi Pāda</p>
+            <h1 class="ancient text-3xl md:text-5xl text-stone-800 mb-3 tracking-wider">Sutra 1.50</h1>
+            <p class="serif text-lg text-stone-600 italic">Tajjaḥ saṃskāro 'nya-saṃskāra-pratibandhī</p>
+            <div class="w-40 h-1 bg-gradient-to-r from-transparent via-stone-400 to-transparent mx-auto mt-6"></div>
+        </header>
+
+        <p class="serif text-base mb-10">
+            ¡Buenos días! Casi al final del capítulo, Patañjali revela el mecanismo de la transformación: cada visión verdadera deja una huella en el subconsciente que desactiva las huellas viejas.
+        </p>
+
+        <!-- EL SUTRA -->
+        <div class="card-sutra p-6 md:p-10 rounded-b-lg mb-10 text-center">
+            <p class="devanagari text-3xl md:text-5xl text-stone-800 mb-6 leading-snug">तज्जः संस्कारोऽन्यसंस्कारप्रतिबन्धी</p>
+            <p class="serif italic text-lg text-stone-700 mb-1">Tajjaḥ saṃskāro 'nya-saṃskāra-pratibandhī</p>
+            <p class="text-sm text-stone-500 mb-6">«La impresión subconsciente nacida de aquella [prajñā] bloquea las demás impresiones.»</p>
+
+            <button class="btn-audio" onclick="reproducirSutra('Tajjah samskaro anya samskara pratibandhi')">
+                <span>🔊</span> Escuchar pronunciación
+            </button>
+            <p class="text-xs text-stone-400 mt-3 italic">(Escucha con atención la cadencia y el sonido de las palabras; utiliza la función de lectura de voz de tu aplicación si deseas la pronunciación exacta)</p>
+        </div>
+
+        <!-- EXPLICACIÓN -->
+        <div class="card-explica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-green-900 mb-6 uppercase tracking-wider">Explicación profunda</h2>
+            <div class="serif text-sm md:text-base space-y-4">
+                <p>
+                    El concepto central:
+                </p>
+                <ul class="space-y-3 text-stone-700">
+                    <li><span class="font-bold text-stone-900">Saṃskāra (La impresión subconsciente):</span> cada experiencia deja una marca: lo que repetimos se vuelve hábito, lo que sufrimos se vuelve reacción. Los saṃskāras son los programas invisibles que ejecutan nuestra vida desde el fondo de la mente (ya los veremos en el capítulo 4).</li>
+                    <li><span class="font-bold text-stone-900">Tajjaḥ (Nacido de eso):</span> el saṃskāra que nace de la prajñā —de la visión directa de la verdad—. No es una idea más: es una huella de EXPERIENCIA REAL, como la de quien tocó el fuego.</li>
+                    <li><span class="font-bold text-stone-900">Pratibandhī (El que bloquea):</span> las huellas profundas no se borran con fuerza de voluntad: se bloquean con otra huella más fuerte. La visión verdadera no pelea con tus patrones viejos: los desactiva, como una luz no discute con la oscuridad.</li>
+                </ul>
+                <p>La buena noticia práctica: no necesitas «eliminar» tus reacciones, miedos o hábitos uno a uno. Necesitas generar experiencias de claridad suficientemente profundas. Cada samādhi auténtico, cada visión directa, deja un saṃskāra que hace el trabajo por ti mientras duermes.</p>
+            </div>
+        </div>
+
+        <!-- APLICACIÓN -->
+        <div class="card-practica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-pink-900 mb-6 uppercase tracking-wider">Aplicación para la práctica diaria</h2>
+            <div class="space-y-5 text-sm md:text-base">
+                <p class="paso"><span class="paso-num">1</span><span><strong>Reemplazo, no guerra:</strong> cuando notes una reacción automática que no te gusta (enfado, picoteo, procrastinación), no la combatas: genera una experiencia contraria fuerte (respiración, práctica, conversación verdadera). La huella nueva hará el trabajo.</span></p>
+                <p class="paso"><span class="paso-num">2</span><span><strong>Guarda el momento claro:</strong> después de una buena práctica o un instante de visión clara, quédate un minuto en silencio sin abrir los ojos. Deja que la experiencia «grave»: ese es el momento en que se forma el saṃskāra.</span></p>
+                <p class="paso"><span class="paso-num">3</span><span><strong>Para reflexionar hoy:</strong> ¿qué experiencia de tu vida cambió algo para siempre sin esfuerzo? (un viaje, un nacimiento, una pérdida). Así trabaja el saṃskāra tajjaḥ.</span></p>
+            </div>
+        </div>
+
+        <!-- AVANCE -->
+        <div class="bg-white border border-stone-200 rounded-lg p-6 md:p-8 shadow-sm text-center">
+            <p class="serif italic text-stone-600 text-sm md:text-base">
+                ¡El miércoles, el final del capítulo: el samādhi sin semilla, el último umbral!
+            </p>
+        </div>
+
+        <footer class="text-center border-t pt-10 pb-16 mt-10">
+            <% if Date.today >= Date.new(2027, 4, 21) %>
+            <p><%= link_to 'Siguiente lección: Sutra 1.51 →', centro_sutra_path(num: '1-51'), class: 'text-sm text-amber-800 hover:text-amber-900 font-semibold' %></p>
+            <% else %>
+            <p class="text-sm text-stone-400 italic">El próximo sutra se desvelará el miércoles 21 de abril</p>
+            <% end %>
+            <p class="mt-4"><%= link_to '← Índice de la serie', centro_sutras_path, class: 'text-sm text-stone-500 hover:text-stone-800' %></p>
+        </footer>
+    </div>
+
+    <script>
+    function reproducirSutra(texto) {
+        if (!('speechSynthesis' in window)) { alert('Tu navegador no soporta lectura de voz.'); return; }
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(texto);
+        u.lang = 'hi-IN'; /* aproximación al sánscrito en navegadores sin voz 'sa' */
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+    }
+    </script>
+</body>
+</html>

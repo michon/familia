@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutra 1.36 · Viśokā vā jyotiṣmatī</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #fcfaf7; color: #2d3436; }
+        .serif { font-family: 'Lora', serif; }
+        .ancient { font-family: 'Cinzel', serif; }
+        .devanagari { font-family: 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', serif; }
+
+        .card-sutra { background: #fffdf5; border-top: 4px solid #b45309; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-explica { background: #ffffff; border-top: 4px solid #4a7c59; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-practica { background: #fffdfa; border-top: 4px solid #be185d; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        .paso { display: flex; align-items: flex-start; }
+        .paso-num {
+            background: #be185d; color: white; width: 22px; height: 22px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 0.7rem; margin-right: 8px; flex-shrink: 0;
+        }
+
+        .btn-audio {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: #b45309; color: #fff; border: none; cursor: pointer;
+            padding: 0.6rem 1.4rem; border-radius: 999px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em;
+        }
+        .btn-audio:hover { background: #92400e; }
+    </style>
+</head>
+<body class="p-4 md:p-12 leading-relaxed">
+    <div class="max-w-3xl mx-auto">
+
+        <p class="mb-4 text-sm text-stone-500">
+            <%= link_to '← Lección anterior: Sutra 1.35', centro_sutra_path(num: '1-35'), class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <p class="mb-6 text-sm text-right">
+            <%= link_to '← Los Yogasutras de Patañjali', centro_sutras_path, class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <% if Date.today >= Date.new(2027, 3, 3) %>
+        <p class="mb-6 text-sm text-right">
+            <%= link_to 'Siguiente lección: Sutra 1.37 →', centro_sutra_path(num: '1-37'), class: 'text-amber-800 hover:text-amber-900 font-semibold' %>
+        </p>
+        <% else %>
+        <p class="mb-6 text-sm text-right text-stone-400 italic">El próximo sutra se desvelará el miércoles 3 de marzo</p>
+        <% end %>
+
+        <header class="text-center mb-10">
+            <p class="ancient text-xs tracking-[0.3em] text-stone-500 uppercase mb-3">Lección 36 · Samādhi Pāda</p>
+            <h1 class="ancient text-3xl md:text-5xl text-stone-800 mb-3 tracking-wider">Sutra 1.36</h1>
+            <p class="serif text-lg text-stone-600 italic">Viśokā vā jyotiṣmatī</p>
+            <div class="w-40 h-1 bg-gradient-to-r from-transparent via-stone-400 to-transparent mx-auto mt-6"></div>
+        </header>
+
+        <p class="serif text-base mb-10">
+            ¡Buenos días! Cerramos el bloque de remedios con el más luminoso: solo tres palabras en sánscrito que apuntan a algo que todos hemos intuido alguna vez.
+        </p>
+
+        <!-- EL SUTRA -->
+        <div class="card-sutra p-6 md:p-10 rounded-b-lg mb-10 text-center">
+            <p class="devanagari text-3xl md:text-5xl text-stone-800 mb-6 leading-snug">विशोका वा ज्योतिष्मती</p>
+            <p class="serif italic text-lg text-stone-700 mb-1">Viśokā vā jyotiṣmatī</p>
+            <p class="text-sm text-stone-500 mb-6">«O también [la mente se estabiliza en] la luminosidad libre de pena.»</p>
+
+            <button class="btn-audio" onclick="reproducirSutra('Vishoka va jyotishmati')">
+                <span>🔊</span> Escuchar pronunciación
+            </button>
+            <p class="text-xs text-stone-400 mt-3 italic">(Escucha con atención la cadencia y el sonido de las palabras; utiliza la función de lectura de voz de tu aplicación si deseas la pronunciación exacta)</p>
+        </div>
+
+        <!-- EXPLICACIÓN -->
+        <div class="card-explica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-green-900 mb-6 uppercase tracking-wider">Explicación profunda</h2>
+            <div class="serif text-sm md:text-base space-y-4">
+                <p>
+                    Desglosemos las tres palabras:
+                </p>
+                <ul class="space-y-3 text-stone-700">
+                    <li><span class="font-bold text-stone-900">Jyotiṣmatī (La luminosidad, lo que tiene luz propia):</span> no la luz de un objeto (el sol, una lámpara): la luminosidad MISMA, la que ilumina los sueños cuando no hay luz externa, la que queda cuando se cierran los ojos y aún «ves». Es la luz de la consciencia.</li>
+                    <li><span class="font-bold text-stone-900">Viśokā (Libre de pena, sin dolor):</span> la condición que Patañjali exige: esa luz está *más allá del sufrimiento*. No es que brille solo cuando estamos bien: es que el sufrimiento ocurre DENTRO de ella, como nubes dentro del cielo, sin tocarlo.</li>
+                </ul>
+                <p>Cómo practicarlo: no busques una luz con los ojos. Busca la cualidad de «claridad sin pesar» que ya has experimentado: al despertarte un día bueno, tras una carcajada, al final de una buena práctica. Es ese sabor. Recuérdalo, evócalo, estabilízate en él. Patañjali dice que eso basta para aquietar la mente: la mente se apoya en la luz como en una almohada.</p>
+            </div>
+        </div>
+
+        <!-- APLICACIÓN -->
+        <div class="card-practica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-pink-900 mb-6 uppercase tracking-wider">Aplicación para la práctica diaria</h2>
+            <div class="space-y-5 text-sm md:text-base">
+                <p class="paso"><span class="paso-num">1</span><span><strong>Recuerdo luminoso:</strong> piensa en un momento de claridad serena sin causa aparente (un amanecer, un abrazo, una resolución). Reconstrúyelo con detalle y quédate 30 segundos en esa sensación. Esa es tu jyotiṣmatī personal.</span></p>
+                <p class="paso"><span class="paso-num">2</span><span><strong>La pregunta de la luz:</strong> en meditación, pregunta suavemente: «¿qué sabe esta experiencia?». No busques respuesta verbal: quédate en la claridad misma del conocer, un instante. Repite cuando divagues.</span></p>
+                <p class="paso"><span class="paso-num">3</span><span><strong>Para reflexionar hoy:</strong> ¿dónde está tu «cielo» cuando hay nubes? ¿Has sentido alguna vez que el dolor no era todo lo que había?</span></p>
+            </div>
+        </div>
+
+        <!-- AVANCE -->
+        <div class="bg-white border border-stone-200 rounded-lg p-6 md:p-8 shadow-sm text-center">
+            <p class="serif italic text-stone-600 text-sm md:text-base">
+                ¡El miércoles, la vía de la inspiración: contemplar la mente de quien ya soltó. Hay atajos… que pasan por otros!
+            </p>
+        </div>
+
+        <footer class="text-center border-t pt-10 pb-16 mt-10">
+            <% if Date.today >= Date.new(2027, 3, 3) %>
+            <p><%= link_to 'Siguiente lección: Sutra 1.37 →', centro_sutra_path(num: '1-37'), class: 'text-sm text-amber-800 hover:text-amber-900 font-semibold' %></p>
+            <% else %>
+            <p class="text-sm text-stone-400 italic">El próximo sutra se desvelará el miércoles 3 de marzo</p>
+            <% end %>
+            <p class="mt-4"><%= link_to '← Índice de la serie', centro_sutras_path, class: 'text-sm text-stone-500 hover:text-stone-800' %></p>
+        </footer>
+    </div>
+
+    <script>
+    function reproducirSutra(texto) {
+        if (!('speechSynthesis' in window)) { alert('Tu navegador no soporta lectura de voz.'); return; }
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(texto);
+        u.lang = 'hi-IN'; /* aproximación al sánscrito en navegadores sin voz 'sa' */
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+    }
+    </script>
+</body>
+</html>

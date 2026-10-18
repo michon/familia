@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutra 1.2 · Yogaś citta-vṛtti-nirodhaḥ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #fcfaf7; color: #2d3436; }
+        .serif { font-family: 'Lora', serif; }
+        .ancient { font-family: 'Cinzel', serif; }
+        .devanagari { font-family: 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', serif; }
+
+        .card-sutra { background: #fffdf5; border-top: 4px solid #b45309; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-explica { background: #ffffff; border-top: 4px solid #4a7c59; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-practica { background: #fffdfa; border-top: 4px solid #be185d; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        .paso { display: flex; align-items: flex-start; }
+        .paso-num {
+            background: #be185d; color: white; width: 22px; height: 22px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 0.7rem; margin-right: 8px; flex-shrink: 0;
+        }
+        .section-title { border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 2rem; }
+
+        .btn-audio {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: #b45309; color: #fff; border: none; cursor: pointer;
+            padding: 0.6rem 1.4rem; border-radius: 999px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em;
+        }
+        .btn-audio:hover { background: #92400e; }
+    </style>
+</head>
+<body class="p-4 md:p-12 leading-relaxed">
+    <div class="max-w-3xl mx-auto">
+
+        <p class="mb-4 text-sm text-stone-500">
+            <%= link_to '← Lección anterior: Sutra 1.1', centro_sutra_1_1_path, class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <p class="mb-6 text-sm text-right">
+            <%= link_to '← Los Yogasutras de Patañjali', centro_sutras_path, class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+
+        <header class="text-center mb-10">
+            <p class="ancient text-xs tracking-[0.3em] text-stone-500 uppercase mb-3">Lección 2 · Samādhi Pāda</p>
+            <h1 class="ancient text-3xl md:text-5xl text-stone-800 mb-3 tracking-wider">Sutra 1.2</h1>
+            <p class="serif text-lg text-stone-600 italic">Yogaś citta-vṛtti-nirodhaḥ</p>
+            <div class="w-40 h-1 bg-gradient-to-r from-transparent via-stone-400 to-transparent mx-auto mt-6"></div>
+        </header>
+
+        <p class="serif text-base mb-10">
+            ¡Buenos días! Continuando con nuestro recorrido por los Yogasutras, hoy avanzamos al segundo versículo de la obra, el cual contiene la definición fundamental de lo que es el yoga según Patañjali.
+        </p>
+
+        <!-- EL SUTRA -->
+        <div class="card-sutra p-6 md:p-10 rounded-b-lg mb-10 text-center">
+            <p class="devanagari text-3xl md:text-5xl text-stone-800 mb-6 leading-snug">योगश्चित्तवृत्तिनिरोधः</p>
+            <p class="serif italic text-lg text-stone-700 mb-1">Yogaś citta-vṛtti-nirodhaḥ</p>
+            <p class="text-sm text-stone-500 mb-6">«El yoga es la quietud (o cese) de las fluctuaciones de la mente.»</p>
+
+            <button class="btn-audio" onclick="reproducirSutra('Yogash chitta vritti nirodhah')">
+                <span>🔊</span> Escuchar pronunciación
+            </button>
+            <p class="text-xs text-stone-400 mt-3 italic">(Escucha con atención la cadencia y el sonido de las palabras: «Yoga-ś-citta-vṛtti-nirodhaḥ»; utiliza la función de lectura de voz de tu aplicación si deseas la pronunciación exacta)</p>
+        </div>
+
+        <!-- EXPLICACIÓN -->
+        <div class="card-explica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-green-900 mb-6 uppercase tracking-wider">Explicación profunda</h2>
+            <div class="serif text-sm md:text-base space-y-4">
+                <p>
+                    Este es probablemente el sutra más famoso y citado de todo el texto. Para comprenderlo en profundidad, desglosemos sus componentes clave:
+                </p>
+                <ul class="space-y-3 text-stone-700">
+                    <li><span class="font-bold text-stone-900">Citta:</span> se refiere a la mente en su totalidad, compuesta por la memoria (smṛti), el intelecto (buddhi) y la mente reactiva o sensorial (manas).</li>
+                    <li><span class="font-bold text-stone-900">Vṛtti:</span> significa literalmente «remolinos», «olas» o «fluctuaciones». Son los pensamientos, emociones, dudas, juicios y recuerdos que constantemente agitan la superficie de nuestra consciencia.</li>
+                    <li><span class="font-bold text-stone-900">Nirodhaḥ:</span> a menudo traducido como «cese», «control» o «dominio», en este contexto no significa represión o fuerza bruta, sino maestría y aquietamiento. Es el proceso mediante el cual el agua turbulenta de un lago se aclara al detenerse el viento.</li>
+                </ul>
+                <p>
+                    El mensaje central es directo: normalmente identificamos nuestro «yo» con el torbellino de nuestros pensamientos («estoy triste», «estoy preocupado», «tengo éxito»). El yoga propone que tu verdadera esencia es el observador detrás de esas olas, y que al aquietar la mente, descansas en tu naturaleza real.
+                </p>
+            </div>
+        </div>
+
+        <!-- APLICACIÓN -->
+        <div class="card-practica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-pink-900 mb-6 uppercase tracking-wider">Aplicación para la práctica diaria</h2>
+            <div class="space-y-5 text-sm md:text-base">
+                <p class="paso"><span class="paso-num">1</span><span><strong>El lago mental:</strong> cuando te sientas abrumado por el estrés o la prisa, visualiza tu mente como un lago sacudido por una tormenta. No intentes calmar el agua golpeándola; simplemente retírate a la orilla y observa cómo, poco a poco, los sedimentos bajan y el agua recobra su claridad por sí sola.</span></p>
+                <p class="paso"><span class="paso-num">2</span><span><strong>En la esterilla o en la vida:</strong> durante el día, detecta cuándo una vṛtti (un pensamiento anticipatorio o un juicio) te arrastra. Respira profundamente y recuerda que puedes elegir no subirte a esa ola mental.</span></p>
+                <p class="paso"><span class="paso-num">3</span><span><strong>Para reflexionar hoy:</strong> ¿cuántas de las preocupaciones que cruzaron por tu mente esta mañana eran olas pasajeras y cuántas eran realidades esenciales?</span></p>
+            </div>
+        </div>
+
+        <!-- AVANCE -->
+        <div class="bg-white border border-stone-200 rounded-lg p-6 md:p-8 shadow-sm text-center">
+            <p class="serif italic text-stone-600 text-sm md:text-base">
+                ¡Mañana seguiremos avanzando en el primer capítulo para descubrir qué sucede cuando logramos o no esta quietud mental!
+            </p>
+        </div>
+
+        <footer class="text-center border-t pt-10 pb-16 mt-10">
+            <%= link_to '← Lección anterior: Sutra 1.1', centro_sutra_1_1_path, class: 'text-sm text-stone-500 hover:text-stone-800' %>
+            <% if Date.today >= Date.new(2026, 10, 21) %>
+            <p class="mt-4"><%= link_to 'Siguiente lección: Sutra 1.3 →', centro_sutra_path(num: '1-3'), class: 'text-sm text-amber-800 hover:text-amber-900 font-semibold' %></p>
+            <% else %>
+            <p class="mt-4 text-sm text-stone-400 italic">El próximo sutra se desvelará el miércoles 21 de octubre</p>
+            <% end %>
+            <p class="mt-4"><%= link_to '← Índice de la serie', centro_sutras_path, class: 'text-sm text-stone-500 hover:text-stone-800' %></p>
+        </footer>
+    </div>
+
+    <script>
+    function reproducirSutra(texto) {
+        if (!('speechSynthesis' in window)) { alert('Tu navegador no soporta lectura de voz.'); return; }
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(texto);
+        u.lang = 'hi-IN'; /* aproximación al sánscrito en navegadores sin voz 'sa' */
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+    }
+    </script>
+</body>
+</html>

@@ -28,6 +28,14 @@ Rails.application.routes.draw do
   get 'centro/aviso'
   get 'centro/cookies'
   get 'centro/bandhas'
+  get 'sutras',       to: 'centro#sutras',       as: :centro_sutras
+  get 'sutras/1-1', to: 'centro#sutra', defaults: { num: '1-1' }, as: :centro_sutra_1_1
+  get 'sutras/1-2', to: 'centro#sutra', defaults: { num: '1-2' }, as: :centro_sutra_1_2
+  get 'sutras/leccion/:num', to: 'centro#sutra', as: :centro_sutra, constraints: { num: /[0-9]+-[0-9]+/ }
+
+  get 'tutoriales',                 to: 'centro#tutoriales',                 as: :centro_tutoriales
+  get 'serie_basica_respiracion',   to: 'centro#serie_basica_respiracion',   as: :centro_serie_basica_respiracion
+
 
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

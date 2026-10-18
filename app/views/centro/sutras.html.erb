@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Los Yogasutras de Patañjali · Guía de práctica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #fcfaf7; color: #2d3436; }
+        .serif { font-family: 'Lora', serif; }
+        .ancient { font-family: 'Cinzel', serif; }
+        .devanagari { font-family: 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', serif; }
+
+        .card-como { background: #ffffff; border-top: 4px solid #4a7c59; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-contenido { background: #ffffff; border-left: 4px solid #b45309; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-leccion { background: #ffffff; border: 1px solid #e7e5e4; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+        .card-leccion:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.08); }
+        .section-title { border-bottom: 2px solid #e5e7eb; padding-bottom: 1rem; margin-bottom: 2rem; }
+
+        details.presentacion summary::-webkit-details-marker { display: none; }
+        details.presentacion summary::after {
+            content: '▸'; float: right; color: #b45309; font-size: 1.2rem;
+            transition: transform 0.2s ease; margin-left: 0.5rem;
+        }
+        details.presentacion[open] summary::after { transform: rotate(90deg); }
+    </style>
+</head>
+<body class="p-4 md:p-12 leading-relaxed">
+    <div class="max-w-4xl mx-auto">
+
+        <% if usuario_signed_in? %>
+        <p class="mb-6 text-sm text-stone-500">
+            <%= link_to '← Volver a la Guía de práctica', centro_tutoriales_path, class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <% end %>
+
+        <header class="text-center mb-10">
+            <h1 class="ancient text-3xl md:text-5xl text-stone-800 mb-4 tracking-wider">Los Yogasutras de Patañjali</h1>
+            <p class="serif text-lg md:text-xl text-stone-600 italic">Una píldora diaria de reflexión para aprender a dominar tu mente</p>
+            <div class="w-48 h-1 bg-gradient-to-r from-transparent via-stone-400 to-transparent mx-auto mt-6"></div>
+        </header>
+
+        <!-- ══ CONFIGURACIÓN DE LA SERIE ══════════════════════════════════
+             Cada lección lleva su fecha de publicación. Solo se muestran
+             las ya publicadas: los alumnos no pueden adelantarse, y la
+             «Lección actual» se calcula sola (la última visible).
+             Calendario: 1.1 el miércoles 14/10/2026; desde el lunes 19/10,
+             lunes y miércoles, evitando festivos nacionales.
+        ═════════════════════════════════════════════════════════════════ -->
+        <%
+                                        lecciones = [
+            { num: '1.1', path: centro_sutra_1_1_path,
+              titulo: "Atha yoga-anuśāsanam",
+              trad: "«Ahora, la instrucción del yoga»",
+              desc: "Todo un sistema filosófico y práctico arranca en ocho palabras: la puerta de entrada a toda la obra.",
+              fecha: Date.new(2026, 10, 14) },
+            { num: '1.2', path: centro_sutra_1_2_path,
+              titulo: "Yogaś citta-vṛtti-nirodhaḥ",
+              trad: "«El yoga es la quietud de las fluctuaciones de la mente»",
+              desc: "El versículo más famoso de toda la obra: la definición misma de qué es el yoga.",
+              fecha: Date.new(2026, 10, 19) },
+            { num: '1.3', path: centro_sutra_path(num: '1-3'),
+              titulo: "Tadā draṣṭuḥ svarūpe 'vasthānam",
+              trad: "«Entonces, el observador se establece en su propia naturaleza»",
+              desc: "Qué ocurre cuando la mente se aquieta: descubrimos quiénes somos detrás del ruido.",
+              fecha: Date.new(2026, 10, 21) },
+            { num: '1.4', path: centro_sutra_path(num: '1-4'),
+              titulo: "Vṛtti-sārūpyam itaratra",
+              trad: "«En otros casos, el observador se asimila a las fluctuaciones»",
+              desc: "Cuando no estamos en nuestro centro, nos confundimos con lo que pensamos y sentimos.",
+              fecha: Date.new(2026, 10, 26) },
+            { num: '1.5', path: centro_sutra_path(num: '1-5'),
+              titulo: "Vṛttayaḥ pañcatayyaḥ kliṣṭākliṣṭāḥ",
+              trad: "«Las fluctuaciones son cinco, aflictivas o no»",
+              desc: "El censo de la mente: cinco movimientos que agitan nuestra consciencia.",
+              fecha: Date.new(2026, 10, 28) },
+            { num: '1.6', path: centro_sutra_path(num: '1-6'),
+              titulo: "Pramāṇa-viparyaya-vikalpa-nidrā-smṛtayaḥ",
+              trad: "«Conocimiento correcto, error, imaginación, sueño y memoria»",
+              desc: "Los cinco nombres de las olas mentales: aprender a reconocerlas es el primer paso.",
+              fecha: Date.new(2026, 11, 2) },
+            { num: '1.7', path: centro_sutra_path(num: '1-7'),
+              titulo: "Pratyakṣānumānāgamāḥ pramāṇāni",
+              trad: "«Las fuentes del conocimiento correcto»",
+              desc: "Percepción directa, inferencia y testimonio: cómo sabemos lo que sabemos.",
+              fecha: Date.new(2026, 11, 4) },
+            { num: '1.8', path: centro_sutra_path(num: '1-8'),
+              titulo: "Viparyayo mithyā-jñānam",
+              trad: "«El error es el conocimiento falso»",
+              desc: "Cuando vemos una cuerda y creemos ver una serpiente: el mecanismo del malentendido.",
+              fecha: Date.new(2026, 11, 9) },
+            { num: '1.9', path: centro_sutra_path(num: '1-9'),
+              titulo: "Śabda-jñāna-anupātī vikalpaḥ",
+              trad: "«La imaginación verbal sin objeto real»",
+              desc: "Palabras sin realidad detrás: el poder y el peligro de lo que solo existe como concepto.",
+              fecha: Date.new(2026, 11, 11) },
+            { num: '1.10', path: centro_sutra_path(num: '1-10'),
+              titulo: "Abhāva-pratyayālambaṇā vṛttir nidrā",
+              trad: "«El sueño es una fluctuación apoyada en la ausencia»",
+              desc: "Incluso dormidos la mente sigue moviéndose: qué nos dice el sueño sobre nosotros.",
+              fecha: Date.new(2026, 11, 16) },
+            { num: '1.11', path: centro_sutra_path(num: '1-11'),
+              titulo: "Anubhūta-viṣaya-āsampramoṣaḥ smṛtiḥ",
+              trad: "«La memoria es la retención de lo experimentado»",
+              desc: "El archivo vivo de todo lo vivido: cómo la memoria filtra nuestra realidad.",
+              fecha: Date.new(2026, 11, 18) },
+            { num: '1.12', path: centro_sutra_path(num: '1-12'),
+              titulo: "Abhyāsa-vairāgyābhyāṃ tan-nirodhaḥ",
+              trad: "«El cese de las fluctuaciones viene por la práctica y el desapego»",
+              desc: "Las dos alas del yoga: persistencia y soltura. Con una sola no se vuela.",
+              fecha: Date.new(2026, 11, 23) },
+            { num: '1.13', path: centro_sutra_path(num: '1-13'),
+              titulo: "Tatra sthitau yatno 'bhyāsaḥ",
+              trad: "«La práctica es el esfuerzo por mantener la estabilidad»",
+              desc: "No es hacer más, es sostener: el esfuerzo tranquilo de permanecer en el centro.",
+              fecha: Date.new(2026, 11, 25) },
+            { num: '1.14', path: centro_sutra_path(num: '1-14'),
+              titulo: "Sa tu dīrgha-kāla-nairantarya-satkāra-āsevitaḥ",
+              trad: "«Se afianza con tiempo, constancia y dedicación»",
+              desc: "La regla de oro: poco, a menudo y con respeto. Así se construye cualquier práctica.",
+              fecha: Date.new(2026, 11, 30) },
+            { num: '1.15', path: centro_sutra_path(num: '1-15'),
+              titulo: "Dṛṣṭānuśravika-viṣaya-vitṛṣṇasya vaśīkāra-saṃjñā vairāgyam",
+              trad: "«El desapego es la maestría sobre los objetos de los deseos»",
+              desc: "No es no querer: es que nada te arrastre. La diferencia entre soltar y reprimir.",
+              fecha: Date.new(2026, 12, 2) },
+            { num: '1.16', path: centro_sutra_path(num: '1-16'),
+              titulo: "Tat paraṃ puruṣa-khyāteḥ guṇa-vaitṛṣṇyam",
+              trad: "«El desapego supremo surge del conocimiento del puro testigo»",
+              desc: "Cuando descubres quién observa, el mundo pierde su poder de enganche.",
+              fecha: Date.new(2026, 12, 7) },
+            { num: '1.17', path: centro_sutra_path(num: '1-17'),
+              titulo: "Vitarka-vicāra-ānanda-asmitā-rūpa-anugamāt saṃprajñātaḥ",
+              trad: "«El samādhi con apoyo sigue cuatro huellas»",
+              desc: "Análisis, reflexión, gozo y sensación de yo: los peldaños del primer samādhi.",
+              fecha: Date.new(2026, 12, 9) },
+            { num: '1.18', path: centro_sutra_path(num: '1-18'),
+              titulo: "Virāma-pratyaya-abhyāsa-pūrvaḥ saṃskāra-śeṣo 'nyaḥ",
+              trad: "«El samādhi sin apoyo queda solo la impresión del cese»",
+              desc: "Cuando hasta el objeto de meditación se disuelve: el silencio que no necesita sostén.",
+              fecha: Date.new(2026, 12, 14) },
+            { num: '1.19', path: centro_sutra_path(num: '1-19'),
+              titulo: "Bhava-pratyayo videha-prakṛti-layānām",
+              trad: "«Otros nacen en estados elevados»",
+              desc: "Los que llegan sin esfuerzo aparente: talentos y vidas anteriores en el camino.",
+              fecha: Date.new(2026, 12, 16) },
+            { num: '1.20', path: centro_sutra_path(num: '1-20'),
+              titulo: "Śraddhā-vīrya-smṛti-samādhi-prajñā-pūrvaka itareṣām",
+              trad: "«Para los demás: fe, energía, memoria, samādhi y discernimiento»",
+              desc: "El kit del que empieza desde cero: cinco herramientas en orden de uso.",
+              fecha: Date.new(2026, 12, 21) },
+            { num: '1.21', path: centro_sutra_path(num: '1-21'),
+              titulo: "Tīvra-saṃvegānām āsannaḥ",
+              trad: "«A los de impulso vehemente, la meta está cercana»",
+              desc: "El factor decisivo no es el tiempo sino la intensidad del anhelo.",
+              fecha: Date.new(2026, 12, 23) },
+            { num: '1.22', path: centro_sutra_path(num: '1-22'),
+              titulo: "Mṛdu-madhya-adhimātratvāt tato 'pi viśeṣaḥ",
+              trad: "«Hay grados: suave, medio e intenso»",
+              desc: "No todos caminamos igual de rápido, y está bien: el camino admite todos los ritmos.",
+              fecha: Date.new(2027, 1, 11) },
+            { num: '1.23', path: centro_sutra_path(num: '1-23'),
+              titulo: "Īśvara-praṇidhānād vā",
+              trad: "«O también por la entrega a Īśvara»",
+              desc: "La vía directa: soltar el control y confiar en algo mayor que uno mismo.",
+              fecha: Date.new(2027, 1, 13) },
+            { num: '1.24', path: centro_sutra_path(num: '1-24'),
+              titulo: "Kleśa-karma-vipāka-āśayair aparāmṛṣṭaḥ puruṣa-viśeṣa īśvaraḥ",
+              trad: "«Īśvara es el puruṣa libre de aflicciones, acciones y sus frutos»",
+              desc: "Quién es Īśvara según Patañjali: no un dios que castiga, sino un maestro que nunca estuvo atado.",
+              fecha: Date.new(2027, 1, 18) },
+            { num: '1.25', path: centro_sutra_path(num: '1-25'),
+              titulo: "Tatra niratiśayaṃ sarva-jña-bījam",
+              trad: "«En él reside la semilla del conocimiento infinito»",
+              desc: "La fuente de todo saber: por eso su palabra tiene autoridad.",
+              fecha: Date.new(2027, 1, 20) },
+            { num: '1.26', path: centro_sutra_path(num: '1-26'),
+              titulo: "Sa pūrveṣām api guruḥ kālenānavacchedāt",
+              trad: "«El maestro de los maestros, sin límite de tiempo»",
+              desc: "El único que nunca dejó de enseñar: la tradición viviente del yoga.",
+              fecha: Date.new(2027, 1, 25) },
+            { num: '1.27', path: centro_sutra_path(num: '1-27'),
+              titulo: "Tasya vācakaḥ praṇavaḥ",
+              trad: "«Su símbolo sonoro es el praṇava: Oṁ»",
+              desc: "Una sola sílaba que lo contiene todo: por qué el Oṁ abre y cierra la práctica.",
+              fecha: Date.new(2027, 1, 27) },
+            { num: '1.28', path: centro_sutra_path(num: '1-28'),
+              titulo: "Taj-japaḥ tad-artha-bhāvanam",
+              trad: "«Su recitación y la contemplación de su significado»",
+              desc: "Repetir el Oṁ sabiendo qué significa: japa con raíces, no mecánico.",
+              fecha: Date.new(2027, 2, 1) },
+            { num: '1.29', path: centro_sutra_path(num: '1-29'),
+              titulo: "Tataḥ pratyak-cetanā-adhigamo 'py antarāya-abhāvaś ca",
+              trad: "«Entonces surge la consciencia interior y los obstáculos desaparecen»",
+              desc: "El efecto colateral del Oṁ: claridad dentro, obstáculos fuera.",
+              fecha: Date.new(2027, 2, 3) },
+            { num: '1.30', path: centro_sutra_path(num: '1-30'),
+              titulo: "Vyādhi-styāna-saṃśaya-pramāda-ālasya-avirati-bhrānti-darśana-alabdha-bhūmikatva-anavasthitatvāni citta-vikṣepāḥ",
+              trad: "«Los nueve obstáculos que dispersan la mente»",
+              desc: "Enfermedad, torpeza, duda, descuido, pereza, apego, error, inestabilidad: el mapa de todo lo que nos desvía.",
+              fecha: Date.new(2027, 2, 8) },
+            { num: '1.31', path: centro_sutra_path(num: '1-31'),
+              titulo: "Duḥkha-daurmanasya-aṅgamejayatva-śvāsa-praśvāsā vikṣepa-sahabhuvaḥ",
+              trad: "«Los compañeros de la distracción: sufrimiento, desánimo y respiración agitada»",
+              desc: "Cómo el cuerpo delata la mente dispersa: señales para detectarlas a tiempo.",
+              fecha: Date.new(2027, 2, 10) },
+            { num: '1.32', path: centro_sutra_path(num: '1-32'),
+              titulo: "Tat-pratiṣedha-artham eka-tattva-abhyāsaḥ",
+              trad: "«Para disiparlos: la práctica de un solo principio»",
+              desc: "El antídoto universal: una sola cosa, practicada con constancia.",
+              fecha: Date.new(2027, 2, 15) },
+            { num: '1.33', path: centro_sutra_path(num: '1-33'),
+              titulo: "Maitrī-karuṇā-muditā-upekṣāṇāṃ bhāvanātaś citta-prasādanam",
+              trad: "«La mente se serena cultivando cuatro actitudes»",
+              desc: "Amistad hacia los felices, compasión hacia los que sufren, alegría hacia los virtuosos, ecuanimidad ante los demás.",
+              fecha: Date.new(2027, 2, 17) },
+            { num: '1.34', path: centro_sutra_path(num: '1-34'),
+              titulo: "Pracchardana-vidhāraṇābhyāṃ vā prāṇasya",
+              trad: "«O por la expiración y la retención del prāṇa»",
+              desc: "La respiración como atajo: soltar y contener para calmar la mente.",
+              fecha: Date.new(2027, 2, 22) },
+            { num: '1.35', path: centro_sutra_path(num: '1-35'),
+              titulo: "Viṣayavatī vā pravṛtti-utpannā manasaḥ sthiti-nibandhanī",
+              trad: "«Una percepción sensorial puede anclar la mente»",
+              desc: "Cuando algo capta del todo tu atención: usar los sentidos a favor.",
+              fecha: Date.new(2027, 2, 24) },
+            { num: '1.36', path: centro_sutra_path(num: '1-36'),
+              titulo: "Viśokā vā jyotiṣmatī",
+              trad: "«O la luz interior libre de dolor»",
+              desc: "Meditar en la claridad serena que queda cuando el sufrimiento se disuelve.",
+              fecha: Date.new(2027, 3, 1) },
+            { num: '1.37', path: centro_sutra_path(num: '1-37'),
+              titulo: "Vīta-rāga-viṣayāṃ vā cittam",
+              trad: "«O la mente de quien está libre de deseo»",
+              desc: "Contemplar a quienes ya soltaron: la inspiración de los maestros.",
+              fecha: Date.new(2027, 3, 3) },
+            { num: '1.38', path: centro_sutra_path(num: '1-38'),
+              titulo: "Svapna-nidrā-jñānālambanaṃ vā",
+              trad: "«O el conocimiento de los sueños y el sueño profundo»",
+              desc: "Mirar los sueños con atención: otra ventana a la mente.",
+              fecha: Date.new(2027, 3, 8) },
+            { num: '1.39', path: centro_sutra_path(num: '1-39'),
+              titulo: "Yathā-abhimata-dhyānād vā",
+              trad: "«O la meditación en lo que a uno le inspire»",
+              desc: "La libertad de Patañjali: puedes meditar en lo que verdaderamente te eleva.",
+              fecha: Date.new(2027, 3, 10) },
+            { num: '1.40', path: centro_sutra_path(num: '1-40'),
+              titulo: "Paramaṇu-parama-mahattva-anto 'sya vaśīkāraḥ",
+              trad: "«Así se logra la maestría desde lo más pequeño hasta lo más grande»",
+              desc: "La atención entrenada no tiene escala: del átomo al infinito.",
+              fecha: Date.new(2027, 3, 15) },
+            { num: '1.41', path: centro_sutra_path(num: '1-41'),
+              titulo: "Kṣīṇa-vṛtteḥ abhijāt-sya iva maṇeḥ samāpattiḥ",
+              trad: "«La aprehensión unitiva, como un cristal que toma el color de lo próximo»",
+              desc: "Cuando la mente está quieta, refleja el objeto tal cual es: esto es samāpatti.",
+              fecha: Date.new(2027, 3, 17) },
+            { num: '1.42', path: centro_sutra_path(num: '1-42'),
+              titulo: "Tatra śabdārtha-jñāna-vikalpaiḥ saṃkirṇā savitarkā",
+              trad: "«La aprehensión mezclada con palabra, significado y conocimiento»",
+              desc: "El nivel inicial: aún razonamos y nombramos lo que percibimos.",
+              fecha: Date.new(2027, 3, 22) },
+            { num: '1.43', path: centro_sutra_path(num: '1-43'),
+              titulo: "Smṛti-pariśuddhau svarūpa-śūnyevārtha-mātra-nirbhāsā nirvitarkā",
+              trad: "«La aprehensión pura, sin razonamiento»",
+              desc: "Cuando el nombre y la cosa se disuelven: el objeto brilla por sí mismo.",
+              fecha: Date.new(2027, 3, 24) },
+            { num: '1.44', path: centro_sutra_path(num: '1-44'),
+              titulo: "Etayāiva savicārā nirvicārā ca sūkṣma-viṣayā vyākhyātā",
+              trad: "«Lo mismo en lo sutil: con y sin reflexión»",
+              desc: "Los cuatro niveles de aprehensión, aplicados a lo más ínfimo de la realidad.",
+              fecha: Date.new(2027, 3, 29) },
+            { num: '1.45', path: centro_sutra_path(num: '1-45'),
+              titulo: "Sūkṣma-viṣayatvaṃ ca aliṅga-paryavasānam",
+              trad: "«Lo sutil culmina en lo sin marca: el no-manifestado»",
+              desc: "El límite último de la meditación: la materia primordial sin forma.",
+              fecha: Date.new(2027, 3, 31) },
+            { num: '1.46', path: centro_sutra_path(num: '1-46'),
+              titulo: "Tā eva sabījaḥ samādhiḥ",
+              trad: "«Estos samādhis aún llevan semilla»",
+              desc: "Importante: la quietud conquistada con apoyo aún no es la liberación final.",
+              fecha: Date.new(2027, 4, 5) },
+            { num: '1.47', path: centro_sutra_path(num: '1-47'),
+              titulo: "Nirvicāra-vaiśāradye 'dhyātma-prasādaḥ",
+              trad: "«En la destreza sin reflexión surge la claridad interior»",
+              desc: "La recompensa de lo sutil: una luz propia que no depende de nada externo.",
+              fecha: Date.new(2027, 4, 7) },
+            { num: '1.48', path: centro_sutra_path(num: '1-48'),
+              titulo: "Ṛtaṃbharā tatra prajñā",
+              trad: "«Allí el conocimiento lleva la verdad»",
+              desc: "El saber que no engaña: cuando la mente esclarecida ve las cosas como son.",
+              fecha: Date.new(2027, 4, 12) },
+            { num: '1.49', path: centro_sutra_path(num: '1-49'),
+              titulo: "Śabda-anumāna-pratyābhijñābhyām anya-viṣaya-viśeṣārthatvāt",
+              trad: "«Es distinto del conocimiento por testimonio o inferencia»",
+              desc: "Más allá de leer o deducir: el conocimiento directo, de boca de la experiencia.",
+              fecha: Date.new(2027, 4, 14) },
+            { num: '1.50', path: centro_sutra_path(num: '1-50'),
+              titulo: "Tad-jāḥ saṃskāro 'nya-saṃskāra-pratibandhī",
+              trad: "«La impresión nacida de él bloquea a las demás»",
+              desc: "Cada experiencia de claridad debilita los viejos hábitos mentales.",
+              fecha: Date.new(2027, 4, 19) },
+            { num: '1.51', path: centro_sutra_path(num: '1-51'),
+              titulo: "Tasya api nirodhe sarva-nirodhān nirbījaḥ samādhiḥ",
+              trad: "«Con el cese incluso de esa impresión: el samādhi sin semilla»",
+              desc: "La cima del capítulo: la liberación última, sin ningún sostén.",
+              fecha: Date.new(2027, 4, 21) }
+          ]
+          visibles = lecciones.select { |l| l[:fecha] <= Date.today }
+          actual = visibles.last
+        %>
+
+        <!-- LECCIÓN ACTUAL (automática: la última visible) -->
+        <% if actual %>
+        <section class="mb-10">
+            <h2 class="ancient text-2xl md:text-3xl text-stone-700 mb-6 section-title">Lección actual</h2>
+            <div class="card-leccion rounded-lg">
+                <%= link_to actual[:path], class: 'block p-6 md:p-8 text-decoration-none text-dark' do %>
+                    <div class="flex flex-wrap items-center gap-4 mb-3">
+                        <span class="ancient text-4xl text-stone-300"><%= actual[:num] %></span>
+                        <div>
+                            <h3 class="ancient text-xl md:text-2xl text-stone-800"><%= actual[:titulo] %></h3>
+                            <p class="text-xs uppercase tracking-widest text-amber-800 font-bold mt-1"><%= actual[:trad] %></p>
+                        </div>
+                        <span class="ml-auto text-sm text-stone-400 italic serif">Leer la lección →</span>
+                    </div>
+                    <p class="serif text-sm text-stone-600"><%= actual[:desc] %></p>
+                <% end %>
+            </div>
+        </section>
+        <% end %>
+
+        <!-- ARCHIVO (solo lecciones ya publicadas, de la más reciente a la primera) -->
+        <section class="mb-12">
+            <h2 class="ancient text-2xl md:text-3xl text-stone-700 mb-6 section-title">Lecciones publicadas</h2>
+            <% if visibles.any? %>
+            <div class="space-y-3">
+                <% visibles.reverse.each do |l| %>
+                    <%= link_to l[:path], class: 'flex items-center gap-4 bg-white border border-stone-200 rounded-lg p-4 text-decoration-none text-dark shadow-sm hover:shadow transition' do %>
+                        <span class="ancient text-stone-400 text-lg w-12"><%= l[:num] %></span>
+                        <div class="flex-grow">
+                            <p class="font-semibold text-stone-800 text-sm"><%= l[:titulo] %> — <%= l[:trad] %></p>
+                        </div>
+                        <span class="text-stone-400 text-xs uppercase tracking-widest"><%= l[:fecha].strftime('%d/%m') %></span>
+                    <% end %>
+                <% end %>
+            </div>
+            <% else %>
+            <p class="serif italic text-sm text-stone-500">La primera lección llegará muy pronto.</p>
+            <% end %>
+            <p class="serif italic text-sm text-stone-500 mt-6 text-center">Las lecciones se desvelan poco a poco, una a una. El recorrido completo del primer capítulo, sutra a sutra.</p>
+        </section>
+
+        <!-- PRESENTACIÓN (desplegable) -->
+        <details class="presentacion mb-12 bg-white border border-stone-200 rounded-xl shadow-sm">
+            <summary class="cursor-pointer select-none p-5 md:p-6 ancient text-xl md:text-2xl text-stone-700 list-none">
+                Lección especial · Presentación
+                <span class="block text-xs font-sans font-normal text-stone-400 mt-1 tracking-wide">Toca para desplegar si quieres conocer de qué va esta serie</span>
+            </summary>
+
+            <div class="p-5 md:p-6 pt-4 border-t border-stone-100">
+                <div class="serif space-y-5 text-base mb-10">
+                    <p>¡Bienvenidas y bienvenidos a esta nueva iniciativa de nuestro centro de yoga!</p>
+                    <p>
+                        ¿Y si tu mente tuviera un manual de instrucciones? Hace unos 2.000 años, el sabio <strong>Patañjali</strong> escribió ese manual: los <strong>Yogasutras</strong>, 196 aforismos que trazan un mapa de cómo funciona la mente humana y cómo liberarnos del estrés, el sufrimiento y la dispersión.
+                    </p>
+                    <p>
+                        La palabra <em>sutra</em> significa «hilo»: cada verso es un hilo de sabiduría para hilarse, recordarse y practicarse en el día a día. Por eso esta serie se publica poco a poco, para digerirla sin prisa y conectar la práctica de la esterilla con la dimensión mental, emocional y espiritual del yoga.
+                    </p>
+                </div>
+
+                <h2 class="ancient text-xl md:text-2xl text-stone-700 mb-6 section-title">¿Qué encontraréis en cada lección?</h2>
+                <div class="space-y-4 mb-10">
+                    <div class="card-contenido p-5 rounded-r-lg">
+                        <p class="text-sm"><strong class="text-amber-900">El Sutra en sánscrito y su transliteración</strong> — para conectar con el idioma original y la vibración ancestral del texto.</p>
+                    </div>
+                    <div class="card-contenido p-5 rounded-r-lg">
+                        <p class="text-sm"><strong class="text-amber-900">Audio con la pronunciación</strong> — para escuchar la resonancia del sánscrito y practicarla.</p>
+                    </div>
+                    <div class="card-contenido p-5 rounded-r-lg">
+                        <p class="text-sm"><strong class="text-amber-900">Traducción y explicación profunda</strong> — el significado directo y un desglose claro de los conceptos clave.</p>
+                    </div>
+                    <div class="card-contenido p-5 rounded-r-lg">
+                        <p class="text-sm"><strong class="text-amber-900">Aplicación para la práctica diaria</strong> — consejos y ejercicios sencillos para el trabajo, la casa y la familia.</p>
+                    </div>
+                    <div class="card-contenido p-5 rounded-r-lg">
+                        <p class="text-sm"><strong class="text-amber-900">Pregunta para reflexionar</strong> — un ancla mental para mantener la consciencia a lo largo de la jornada.</p>
+                    </div>
+                </div>
+
+                <h2 class="ancient text-xl md:text-2xl text-stone-700 mb-6 section-title">Cómo aprovechar al máximo estas lecciones</h2>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="card-como p-6 rounded-b-lg">
+                        <p class="ancient text-3xl text-green-800 mb-3">01</p>
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-green-900 mb-2">Dedícale 3 minutos al empezar el día</h3>
+                        <p class="text-sm text-stone-600">Lee la lección por la mañana o escúchala antes de arrancar con tus tareas.</p>
+                    </div>
+                    <div class="card-como p-6 rounded-b-lg">
+                        <p class="ancient text-3xl text-green-800 mb-3">02</p>
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-green-900 mb-2">Elige una palabra o idea ancla</h3>
+                        <p class="text-sm text-stone-600">Lleva la reflexión contigo durante toda la jornada.</p>
+                    </div>
+                    <div class="card-como p-6 rounded-b-lg">
+                        <p class="ancient text-3xl text-green-800 mb-3">03</p>
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-green-900 mb-2">Comparte en clase</h3>
+                        <p class="text-sm text-stone-600">Comentad vuestras impresiones durante o al finalizar las sesiones del centro.</p>
+                    </div>
+                    <div class="card-como p-6 rounded-b-lg">
+                        <p class="ancient text-3xl text-green-800 mb-3">04</p>
+                        <h3 class="font-bold text-sm uppercase tracking-wider text-green-900 mb-2">Para empezar hoy</h3>
+                        <p class="text-sm text-stone-600">Abre tu mente a este viaje con la curiosidad de quien descubre un camino totalmente nuevo. ¡Empezamos!</p>
+                    </div>
+                </div>
+            </div>
+        </details>
+
+        <footer class="text-center border-t pt-10 pb-16">
+            <p class="serif text-stone-500 text-sm italic">"Los sutras son hilos: cada uno, tirado con cuidado, despliega todo un tapiz."</p>
+        </footer>
+    </div>
+</body>
+</html>

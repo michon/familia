@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sutra 1.4 · Vṛtti-sārūpyam itaratra</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@300;400;600&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #fcfaf7; color: #2d3436; }
+        .serif { font-family: 'Lora', serif; }
+        .ancient { font-family: 'Cinzel', serif; }
+        .devanagari { font-family: 'Tiro Devanagari Sanskrit', 'Noto Sans Devanagari', serif; }
+
+        .card-sutra { background: #fffdf5; border-top: 4px solid #b45309; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-explica { background: #ffffff; border-top: 4px solid #4a7c59; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card-practica { background: #fffdfa; border-top: 4px solid #be185d; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+        .paso { display: flex; align-items: flex-start; }
+        .paso-num {
+            background: #be185d; color: white; width: 22px; height: 22px;
+            display: inline-flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 0.7rem; margin-right: 8px; flex-shrink: 0;
+        }
+
+        .btn-audio {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: #b45309; color: #fff; border: none; cursor: pointer;
+            padding: 0.6rem 1.4rem; border-radius: 999px;
+            font-family: 'Montserrat', sans-serif; font-size: 0.85rem; letter-spacing: 0.05em;
+        }
+        .btn-audio:hover { background: #92400e; }
+    </style>
+</head>
+<body class="p-4 md:p-12 leading-relaxed">
+    <div class="max-w-3xl mx-auto">
+
+        <p class="mb-4 text-sm text-stone-500">
+            <%= link_to '← Lección anterior: Sutra 1.3', centro_sutra_path(num: '1-3'), class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <p class="mb-6 text-sm text-right">
+            <%= link_to '← Los Yogasutras de Patañjali', centro_sutras_path, class: 'text-stone-500 hover:text-stone-800' %>
+        </p>
+        <% if Date.today >= Date.new(2026, 10, 28) %>
+        <p class="mb-6 text-sm text-right">
+            <%= link_to 'Siguiente lección: Sutra 1.5 →', centro_sutra_path(num: '1-5'), class: 'text-amber-800 hover:text-amber-900 font-semibold' %>
+        </p>
+        <% else %>
+        <p class="mb-6 text-sm text-right text-stone-400 italic">El próximo sutra se desvelará el miércoles 28 de octubre</p>
+        <% end %>
+
+        <header class="text-center mb-10">
+            <p class="ancient text-xs tracking-[0.3em] text-stone-500 uppercase mb-3">Lección 4 · Samādhi Pāda</p>
+            <h1 class="ancient text-3xl md:text-5xl text-stone-800 mb-3 tracking-wider">Sutra 1.4</h1>
+            <p class="serif text-lg text-stone-600 italic">Vṛtti-sārūpyam itaratra</p>
+            <div class="w-40 h-1 bg-gradient-to-r from-transparent via-stone-400 to-transparent mx-auto mt-6"></div>
+        </header>
+
+        <p class="serif text-base mb-10">
+            ¡Buenos días! Este cuarto versículo es el espejo del anterior: nos muestra nuestro estado habitual, el «modo por defecto» de la mente cuando no hay quietud.
+        </p>
+
+        <!-- EL SUTRA -->
+        <div class="card-sutra p-6 md:p-10 rounded-b-lg mb-10 text-center">
+            <p class="devanagari text-3xl md:text-5xl text-stone-800 mb-6 leading-snug">वृत्तिसारूप्यमितरत्र</p>
+            <p class="serif italic text-lg text-stone-700 mb-1">Vṛtti-sārūpyam itaratra</p>
+            <p class="text-sm text-stone-500 mb-6">«En otros casos, el observador se asimila a las fluctuaciones.»</p>
+
+            <button class="btn-audio" onclick="reproducirSutra('Vritti sarupyam itaratra')">
+                <span>🔊</span> Escuchar pronunciación
+            </button>
+            <p class="text-xs text-stone-400 mt-3 italic">(Escucha con atención la cadencia y el sonido de las palabras; utiliza la función de lectura de voz de tu aplicación si deseas la pronunciación exacta)</p>
+        </div>
+
+        <!-- EXPLICACIÓN -->
+        <div class="card-explica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-green-900 mb-6 uppercase tracking-wider">Explicación profunda</h2>
+            <div class="serif text-sm md:text-base space-y-4">
+                <p>
+                    Patañjali acaba de describir la libertad (1.3) y ahora describe, sin juzgar, la situación contraria. Dos palabras lo dicen todo:
+                </p>
+                <ul class="space-y-3 text-stone-700">
+                    <li><span class="font-bold text-stone-900">Itaratra (En otros casos):</span> es decir: cuando no hay cese de las fluctuaciones. La mayor parte del día, la mente está en movimiento, y esto que describe el sutra es lo que nos ocurre entonces.</li>
+                    <li><span class="font-bold text-stone-900">Sārūpyam (Se conforma a, toma la misma forma):</span> el observador adopta la forma de lo que observa. Piensa en un cristal transparente junto a una flor roja: parece volverse rojo, aunque jamás deja de ser cristal. Así, cuando pensamos «qué mal día», creemos *ser* ese mal día.</li>
+                </ul>
+                <p>Este sutra no es una crítica, es un diagnóstico amable: no estamos rotos, solo estamos «adquiriendo color» de todo lo que tocamos con la mente. Y lo que se conforma, también puede des-conformarse: ahí empieza la práctica.</p>
+            </div>
+        </div>
+
+        <!-- APLICACIÓN -->
+        <div class="card-practica p-6 md:p-10 rounded-b-lg mb-10">
+            <h2 class="ancient text-xl md:text-2xl text-pink-900 mb-6 uppercase tracking-wider">Aplicación para la práctica diaria</h2>
+            <div class="space-y-5 text-sm md:text-base">
+                <p class="paso"><span class="paso-num">1</span><span><strong>Detecta el «tinte»:</strong> hoy, cuando una emoción te atrape (ira, prisa, entusiasmo), pregúntate: «¿esto es lo que soy, o es lo que estoy reflejando?». No busques cambiarla; solo reconocerla ya crea distancia.</span></p>
+                <p class="paso"><span class="paso-num">2</span><span><strong>El cristal en clase:</strong> en tu próxima práctica, imagina la mente como el cristal: cada sensación, cada pensamiento durante la postura es un color que pasa. El ejercicio no es quitar los colores, es recordar que eres el cristal.</span></p>
+                <p class="paso"><span class="paso-num">3</span><span><strong>Para reflexionar hoy:</strong> ¿con qué «colores» te has identificado esta semana? ¿Eran tuyos o prestados?</span></p>
+            </div>
+        </div>
+
+        <!-- AVANCE -->
+        <div class="bg-white border border-stone-200 rounded-lg p-6 md:p-8 shadow-sm text-center">
+            <p class="serif italic text-stone-600 text-sm md:text-base">
+                ¡El miércoles daremos el siguiente paso: Patañjali enumera las cinco clases de fluctuaciones que tiñen nuestra mente. Son solo cinco… y las conocemos todas!
+            </p>
+        </div>
+
+        <footer class="text-center border-t pt-10 pb-16 mt-10">
+            <% if Date.today >= Date.new(2026, 10, 28) %>
+            <p><%= link_to 'Siguiente lección: Sutra 1.5 →', centro_sutra_path(num: '1-5'), class: 'text-sm text-amber-800 hover:text-amber-900 font-semibold' %></p>
+            <% else %>
+            <p class="text-sm text-stone-400 italic">El próximo sutra se desvelará el miércoles 28 de octubre</p>
+            <% end %>
+            <p class="mt-4"><%= link_to '← Índice de la serie', centro_sutras_path, class: 'text-sm text-stone-500 hover:text-stone-800' %></p>
+        </footer>
+    </div>
+
+    <script>
+    function reproducirSutra(texto) {
+        if (!('speechSynthesis' in window)) { alert('Tu navegador no soporta lectura de voz.'); return; }
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(texto);
+        u.lang = 'hi-IN'; /* aproximación al sánscrito en navegadores sin voz 'sa' */
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+    }
+    </script>
+</body>
+</html>

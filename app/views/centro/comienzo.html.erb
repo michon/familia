@@ -1,18 +1,17 @@
-
 <% if usuario_signed_in? %>
   <div class="row d-flex justify-content-between mb-5">
     <%= link_to(clases_asignadas_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
         <p class="text-center mb-0">
-          <%= lucide_icon('calendar-clock', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+          <%= lucide_icon('calendar-clock', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
         </p>
         <p class="text-center m-0">
-          Clases Asignadas 
+          Clases Asignadas
         </p>
     <% end %>
 
     <%= link_to(clases_buscar_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
         <p class="text-center mb-0">
-          <%= lucide_icon('calendar-search', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+          <%= lucide_icon('calendar-search', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
         </p>
         <p class="text-center m-0">
           Buscar Clase
@@ -23,7 +22,7 @@
   <div class="row d-flex justify-content-between mb-5">
     <%= link_to(clases_cambiar_path(id: 0), class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
       <p class="text-center mb-0">
-        <%= lucide_icon('replace', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+        <%= lucide_icon('replace', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
       </p>
       <p class="text-center m-0">
         Cambiar Clase
@@ -31,7 +30,7 @@
     <% end %>
     <%= link_to(clases_listaEspera_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
       <p class="text-center mb-0">
-        <%= lucide_icon('hand', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+        <%= lucide_icon('hand', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
       </p>
       <p class="text-center m-0">
         En lista de espera
@@ -42,7 +41,7 @@
   <div class="row d-flex justify-content-between mb-5">
     <%= link_to(clases_historial_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
       <p class="text-center mb-0">
-        <%= lucide_icon('file-clock', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+        <%= lucide_icon('file-clock', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
       </p>
       <p class="text-center m-0">
         Historial
@@ -50,7 +49,7 @@
     <% end %>
     <%= link_to(usuario_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
       <p class="text-center mb-0">
-        <%= lucide_icon('user-round-pen', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+        <%= lucide_icon('user-round-pen', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
       </p>
       <p class="text-center m-0">
         Perfil
@@ -60,16 +59,20 @@
   <div class="row d-flex justify-content-between mb-5">
     <%= link_to(mi_horario_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
       <p class="text-center mb-0">
-        <%= lucide_icon('calendar', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %> 
+        <%= lucide_icon('calendar', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
       </p>
       <p class="text-center m-0">
         Horario habitual
       </p>
     <% end %>
-    <%= link_to(usuario_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
+
+    <%# ── NUEVO: acceso a la Guía de práctica (tutoriales) ── %>
+    <%= link_to(centro_tutoriales_path, class: 'd-flex col-6 flex-column text-decoration-none text-dark') do %>
       <p class="text-center mb-0">
+        <%= lucide_icon('book-open', 'width' => '64', 'height' => '64', 'stroke-width' => '1', 'stroke' => '#e32222') %>
       </p>
       <p class="text-center m-0">
+        Guía de práctica
       </p>
     <% end %>
   </div>

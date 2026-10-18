@@ -1,0 +1,63 @@
+<div class="container py-4">
+  <h1 class="h3 mb-1 text-center">Guía de práctica</h1>
+  <p class="text-muted text-center mb-4">Tutoriales y apuntes para tu práctica</p>
+
+  <div class="row g-3">
+
+    <!-- Tutorial: Bandhas -->
+    <div class="col-12 col-md-6">
+      <%= link_to centro_bandhas_path, class: 'card text-decoration-none text-dark h-100 shadow-sm' do %>
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <%= lucide_icon('lock', 'width' => '32', 'height' => '32', 'stroke-width' => '1', 'stroke' => '#e32222') %>
+            <h2 class="h5 mb-0 ms-2">Las Llaves Sagradas · Bandhas</h2>
+          </div>
+          <p class="card-text text-muted small mb-0">
+            Tratado sobre la alquimia muscular y energética: Mūla, Uḍḍīyāna y Jālandhara Bandha.
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Tutorial: Serie básica de respiración -->
+    <div class="col-12 col-md-6">
+      <%= link_to centro_serie_basica_respiracion_path, class: 'card text-decoration-none text-dark h-100 shadow-sm' do %>
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <%= lucide_icon('wind', 'width' => '32', 'height' => '32', 'stroke-width' => '1', 'stroke' => '#e32222') %>
+            <h2 class="h5 mb-0 ms-2">Serie Básica de Respiración</h2>
+          </div>
+          <p class="card-text text-muted small mb-0">
+            La serie de Yogi Bhajan (1969): seis ejercicios de 22–25 minutos para elevar tu energía, claridad y equilibrio.
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- Tutorial: Sutras de Patañjali (serie semanal) -->
+    <div class="col-12 col-md-6">
+      <%= link_to centro_sutras_path, class: 'card text-decoration-none text-dark h-100 shadow-sm' do %>
+        <div class="card-body">
+          <div class="d-flex align-items-center mb-2">
+            <%= lucide_icon('scroll-text', 'width' => '32', 'height' => '32', 'stroke-width' => '1', 'stroke' => '#e32222') %>
+            <h2 class="h5 mb-0 ms-2">Los Sutras de Patañjali</h2>
+          </div>
+          <p class="card-text text-muted small mb-0">
+            Serie semanal: un sutra cada semana con su audio, explicación y práctica diaria. Empezando por el Sutra 1.1.
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <%#
+      ─────────────────────────────────────────────────────────────
+      PARA AÑADIR UN NUEVO TUTORIAL:
+        1. Copia uno de los bloques <div class="col-12 col-md-6"> de arriba.
+        2. Cambia el icono (ver https://lucide.dev), el título y el texto.
+        3. Apunta el link al nuevo path.
+        4. Añade la ruta en config/routes.rb (ver LEEME-subida.md).
+      ─────────────────────────────────────────────────────────────
+    %>
+
+  </div>
+</div>
